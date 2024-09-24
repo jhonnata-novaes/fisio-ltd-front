@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+    margin:0;
+    padding: 0;
+}
+html, body {
+    margin: 0; // Remove margens do body e html
+    padding: 0; // Remove padding, se houver
+    height: 100%; // Garante que o body ocupe a altura total
+}
+  
