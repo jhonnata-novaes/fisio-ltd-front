@@ -34,10 +34,9 @@
     padding: 5px;
     transform: rotate(45deg);
     margin-left: 15px;
-    position: relative;
-    top: -2px;  
+    position: relative; 
+    top: -2px; 
 }
-
 
 .sidebar {
     height: 100%;
@@ -77,11 +76,11 @@
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    vertical-align: middle;
+    vertical-align: middle; 
 }
 
 .main-content {
-    margin-left: 250px;
+    margin-left: 250px; 
     padding: 20px;
     background-color: #f9f9f9;
     height: calc(100vh - 83px); 
@@ -90,81 +89,88 @@
     flex-direction: column; 
 }
 
-h1 {
+.form-container {
     display: flex; 
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; 
+    gap: 20px; 
+    margin-bottom: 20px;
+}
+
+h1 {
+    padding: 15px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;  
     font-size: 20px;
     color: #08446C;
 }
 
-.custom-button {
-    margin-left: auto; 
+.dados-basicos {
+    background-color: #eef0f5;
+    color: #696969;
+    padding: 14px; 
+    border-bottom: 30px;
+    width: calc(100% + 40px); 
+    margin: 0 -20px; 
+    position: relative; 
+    margin-top: 25px;
 }
 
-.custom-button {
-    border: 1px solid #0A74B7; 
-    background-color: transparent; 
-    color: #0A74B7; 
-    padding: 10px 20px; 
-    border-radius: 5px; 
-    cursor: pointer;
-    font-size: 16px; 
-    transition: background-color 0.3s, color 0.3s; 
-    margin-top: -35px;
+h6 {
+    padding-left: 25px;
+    padding-top: 5px;
 }
 
-.custom-button:hover {
-    background-color: #0A74B7; 
-    color: white;
+p {
+    color: #0A74B7;
 }
 
-.icon-adicionar-pacientes {
-    width: 20px;
-    height: 25px;
-    margin-right: 8px; 
-    vertical-align: middle;
+.nome-paciente {
+    padding-top: 35px;
+    padding-left: 30px;
+    flex: 1; 
 }
 
-h2{
-    font-size: 20px;
-    color: #08446C;
-}
-
-.patients-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px; 
-}
-
-.patients-table th, .patients-table td {
-    border: 1px solid #dddddd; 
-    text-align: left;
+#nome {
+    height: 45px; 
     padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    box-sizing: border-box; 
+    width: 100%;
 }
 
-.patients-table th {
-    background-color: #f2f2f2; 
+#nome::placeholder {
+    color: black; 
+    padding-left: 10px;
 }
 
-.id-cell {
-    color: #0A74B7; 
-    font-weight: bold; 
+.data-avaliacao {
+    padding-top: 35px;
+    flex: 1; 
+    padding-left: 45px;
+   
 }
 
-.view-button {
-    background-color: #0A74B7; 
-    color: white;
-    border: none;
-    padding: 5px 10px; 
-    cursor: pointer;
-    border-radius: 5px; 
+#data {
+    width: 80%;
+    height: 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
+.estado-civil{
+    padding-top: 35px; 
+    position: relative; 
+    left: -35px; 
 
-.view-button:hover {
-    background-color: #08446C;
 }
-
-
-
-
+#estado-civil{
+    width: 300px;
+    height: 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;    
+}

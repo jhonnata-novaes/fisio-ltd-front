@@ -1,0 +1,50 @@
+<nav class="navbar">
+    <a class="navbar-brand">Minha conta</a>
+    <span class="separator"></span>
+    <a class="navbar-brand" id="dashboard">Meu dashboard</a>
+    <a class="navbar-brand ml-auto">Administrador <span class="arrow-down"></span></a>
+</nav>
+
+<div class="sidebar">
+    <ul>
+        <li>
+            <a href="#">
+                <img src="assets/logodashboard.png" alt="dashboard icone" class="icon">
+                Meu dashboard
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="assets/logopacientes.png" alt="pacientes icone" class="icon">
+                Pacientes
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-content">
+        <h1>NOVO PACIENTE</h1>
+        <div class="dados-basicos">
+            <h6>DADOS BÁSICOS</h6>
+        </div>
+        <div class="form-container">
+            <div class="nome-paciente">
+                <p>NOME:</p>
+                <input placeholder="Insira seu nome" type="nome" id="nome" name="nome" ngModel required>
+            </div>
+            <div class="data-avaliacao">
+                <p>DATA DA AVALIAÇÃO:</p>
+                <input type="date" id="data" name="data" ngModel required>
+            </div>
+            <div class="estado-civil">
+                <p>ESTADO CÍVIL:</p>
+                <select id="estado-civil" name="estado-civil" required>
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="solteiro">Solteiro(a)</option>
+                    <option value="casado">Casado(a)</option>
+                    <option value="divorciado">Divorciado(a)</option>
+                    <option value="viuvo">Viúvo(a)</option>
+                </select>
+            </div>
+        </div>
+</div>
