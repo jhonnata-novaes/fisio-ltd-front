@@ -30,7 +30,7 @@ html, body {
 .logologin{
   justify-content: center;
   display: flex;
-  margin-left: 5.6rem;
+  margin-left: 4.5rem;
 }
   
 .login-container {
@@ -46,6 +46,7 @@ html, body {
 
 h1 {
   text-align: center;
+  padding: 12px;
   color: #08446C;
   font-family: "Roboto", "sans-serif";
 }
@@ -66,8 +67,8 @@ label {
 }
 
 input {
-  width: calc(100% - 20px); 
-  height: 25px;
+  width: calc(100% - 0px); 
+  height: 50px;
   border-color: #08446C;
   padding: 8px;
   border: 2px solid #ccc;
