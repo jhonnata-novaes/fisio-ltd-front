@@ -1,3 +1,66 @@
 <nav class="navbar">
     <a class="navbar-brand">Minha conta</a>
+    <span class="separator"></span>
+    <a class="navbar-brand" id="dashboard">Meu dashboard</a>
+    <a class="navbar-brand ml-auto">Administrador <span class="arrow-down"></span></a>
 </nav>
+
+<div class="sidebar">
+    <ul>
+        <li>
+            <a href="#">
+                <img src="assets/logodashboard.png" alt="dashboard icone" class="icon">
+                Meu dashboard
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="assets/logopacientes.png" alt="pacientes icone" class="icon">
+                Pacientes
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<div class="main-content">
+    <h1>PACIENTES</h1>
+    <button class="custom-button">
+        <img src="assets/logonovopacientes.png" alt="Adicionar" class="icon-adicionar-pacientes">
+        Adicionar Paciente
+    </button>   
+
+
+    <h2>20 PACIENTES ENCONTRADOS</h2>
+    <table class="patients-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="id-cell">1</td>
+                <td>José Amaral</td>
+                <td><button class="view-button">Visualizar</button></td>
+            </tr>
+            <tr>
+                <td class="id-cell">2</td>
+                <td>Alessandro</td>
+                <td><button class="view-button">Visualizar</button></td>
+            </tr>
+            <tr>
+                <td class="id-cell">3</td>
+                <td>José</td>
+                <td><button class="view-button">Visualizar</button></td>
+            </tr>
+            <tr>
+                <td class="id-cell">4</td>
+                <td>Maria</td>
+                <td><button class="view-button">Visualizar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

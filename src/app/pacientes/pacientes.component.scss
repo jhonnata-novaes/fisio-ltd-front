@@ -1,8 +1,170 @@
-.navbar{
+.navbar {
     background-color: #08446C;
     height: 83px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
-.navbar-brand{
+
+.navbar-brand {
     color: white;
     padding-left: 38px;
 }
+
+.separator {
+    height: 50px; 
+    width: 2px; 
+    background-color: white;
+    margin-left: 90px; 
+    margin-right: -35px;
+}
+
+#dashboard {
+    margin-left: 20px;
+}
+
+.ml-auto {
+    margin-left: 54rem;
+}
+
+.arrow-down {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(45deg);
+    margin-left: 15px;
+    position: relative;  /* Permite ajustar a posição */
+    top: -2px;  /* Sobe a seta um pouco */
+}
+
+
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 83px; 
+    left: 0;
+    background-color: #E8E4E4;
+    padding-top: 20px;
+    transition: 0.3s;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 0px;
+}
+
+.sidebar ul li a {
+    display: block; /* Faz com que o link ocupe toda a largura */
+    padding: 15px; /* Adiciona o padding diretamente no link */
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    transition: background-color 0.3s, padding 0.3s; /* Transição suave */
+}
+
+.sidebar ul li a:hover {
+    background-color: #0A74B7;
+    color: white;
+    padding: 20px; /* Aumenta o padding no hover para maior efeito */
+}
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle; /* Alinha o ícone ao texto */
+}
+
+.main-content {
+    margin-left: 250px; /* Para garantir que o conteúdo não fique atrás do menu lateral */
+    padding: 20px; /* Espaçamento interno */
+    background-color: #f9f9f9; /* Cor de fundo do conteúdo */
+    height: calc(100vh - 83px); /* Altura total menos a altura da navbar */
+    overflow-y: auto; /* Adiciona rolagem se o conteúdo exceder a altura */
+    display: flex; /* Ativa Flexbox */
+    flex-direction: column; /* Direção em coluna */
+}
+
+h1 {
+    display: flex; /* Ativa Flexbox para o título */
+    justify-content: space-between; /* Espaça o título e o botão */
+    align-items: center; /* Alinha verticalmente */
+    font-size: 20px;
+    color: #08446C;
+}
+
+.custom-button {
+    margin-left: auto; /* Move o botão para a direita */
+}
+
+.custom-button {
+    border: 1px solid #0A74B7; /* Borda fina */
+    background-color: transparent; /* Fundo transparente */
+    color: #0A74B7; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Arredondamento dos cantos (opcional) */
+    cursor: pointer; /* Cursor de pointer para indicar que é clicável */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: background-color 0.3s, color 0.3s; /* Transições suaves */
+    margin-top: -35px;
+}
+
+.custom-button:hover {
+    background-color: #0A74B7; /* Fundo azul no hover */
+    color: white; /* Texto branco no hover */
+}
+
+.icon-adicionar-pacientes {
+    width: 20px; /* Ajuste o tamanho conforme necessário */
+    height: 25px;
+    margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+    vertical-align: middle; /* Alinha o ícone ao texto */
+}
+
+h2{
+    font-size: 20px;
+    color: #08446C;
+}
+
+.patients-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove o espaço entre as bordas */
+    margin-top: 20px; /* Espaço acima da tabela */
+}
+
+.patients-table th, .patients-table td {
+    border: 1px solid #dddddd; /* Borda leve */
+    text-align: left; /* Alinha o texto à esquerda */
+    padding: 10px; /* Espaçamento interno */
+}
+
+.patients-table th {
+    background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
+}
+
+.id-cell {
+    color: #0A74B7; /* Azul */
+    font-weight: bold; /* Opcional: deixar o texto em negrito */
+}
+
+.view-button {
+    background-color: #0A74B7; /* Cor do botão */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda */
+    padding: 5px 10px; /* Espaçamento interno do botão */
+    cursor: pointer; /* Cursor de pointer para indicar que é clicável */
+    border-radius: 5px; /* Arredondamento dos cantos */
+}
+
+.view-button:hover {
+    background-color: #08446C; /* Cor do botão ao passar o mouse */
+}
+
+
+
+
