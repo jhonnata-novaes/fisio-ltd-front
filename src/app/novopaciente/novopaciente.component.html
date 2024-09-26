@@ -23,28 +23,61 @@
 </div>
 
 <div class="main-content">
-        <h1>NOVO PACIENTE</h1>
-        <div class="dados-basicos">
-            <h6>DADOS BÁSICOS</h6>
+    <h1>NOVO PACIENTE</h1>
+    <div class="dados-basicos">
+        <h6>DADOS BÁSICOS</h6>
+    </div>
+    <div class="form-container">
+        <div class="nome-paciente">
+            <p>NOME:</p>
+            <input placeholder="Insira seu nome" type="text" id="nome" name="nome" ngModel required>
         </div>
-        <div class="form-container">
-            <div class="nome-paciente">
-                <p>NOME:</p>
-                <input placeholder="Insira seu nome" type="nome" id="nome" name="nome" ngModel required>
-            </div>
-            <div class="data-avaliacao">
-                <p>DATA DA AVALIAÇÃO:</p>
-                <input type="date" id="data" name="data" ngModel required>
-            </div>
-            <div class="estado-civil">
-                <p>ESTADO CÍVIL:</p>
-                <select id="estado-civil" name="estado-civil" required>
-                    <option value="" disabled selected>Selecione uma opção</option>
-                    <option value="solteiro">Solteiro(a)</option>
-                    <option value="casado">Casado(a)</option>
-                    <option value="divorciado">Divorciado(a)</option>
-                    <option value="viuvo">Viúvo(a)</option>
-                </select>
-            </div>
+        <div class="data-avaliacao">
+            <p>DATA DA AVALIAÇÃO:</p>
+            <input type="date" id="data" name="data" ngModel required>
         </div>
+        <div class="estado-civil">
+            <p>ESTADO CÍVIL:</p>
+            <select id="estado-civil" name="estado-civil" required>
+                <option value="" disabled selected>Selecione uma opção</option>
+                <option value="solteiro">Solteiro(a)</option>
+                <option value="casado">Casado(a)</option>
+                <option value="divorciado">Divorciado(a)</option>
+                <option value="viuvo">Viúvo(a)</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-container">
+        <div class="nacionalidade">
+            <p>NACIONALIDADE:</p>
+            <select id="nacionalidade" name="nacionalidade" required>
+                <option value="" disabled selected>Selecione uma opção</option>
+                <option value="brasileiro">Brasileiro</option>
+                <option value="estrangeiro">Estrangeiro</option>
+            </select>
+        </div>
+        
+        <div class="naturalidade">
+            <p>NATURALIDADE (UF):</p>
+            <select id="naturalidade" name="naturalidade" required>
+                <option value="" disabled selected>Selecione uma opção</option>
+                <option value="sp">São Paulo</option>
+                <option value="rj">Rio de Janeiro</option>
+                <option value="mg">Minas Gerais</option>
+                <option value="rs">Rio Grande do Sul</option>
+                <option value="pr">Paraná</option>
+                <!-- Adicione mais estados conforme necessário -->
+            </select>
+        </div>
+        
+        <div class="data-nascimento">
+            <p>DATA DE NASCIMENTO:</p>
+            <input type="date" id="data-nascimento" name="data-nascimento" ngModel required>
+        </div>
+    
+        <div class="peso">
+            <p>PESO (kg):</p>
+            <input type="number" id="peso" name="peso" ngModel required placeholder="Insira seu peso">
+        </div>        
+    </div>
 </div>
