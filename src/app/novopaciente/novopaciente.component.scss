@@ -61,7 +61,7 @@
 .sidebar ul li a {
     display: block; 
     padding: 15px; 
-    color: black;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     width: 100%;
     transition: background-color 0.3s, padding 0.3s; 
@@ -175,46 +175,111 @@ p {
     box-sizing: border-box;    
 }
 
-.nacionalidade, .naturalidade, .data-nascimento, .peso {
-    flex: 1; /* Garante que todos os campos ocupem o mesmo espaço */
-    padding-top: 35px; /* Mantém o padding acima para os campos */
-    margin-left: 30px;
+.nacionalidade{
+    padding-top: 35px;
+    padding-left: 30px;
+    flex: 1; 
 }
 
-#nacionalidade, #naturalidade, #data-nascimento, #peso {
+#nacionalidade{
+    width: 120%; /* Faz todos os campos ocuparem toda a largura disponível */
+    height: 45px; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.naturalidade{
+    padding-top: 35px;
+    padding-left: 30px;
+    flex: 1; 
+    margin-left: 55px;
+}
+
+#naturalidade{
     width: 100%; /* Faz todos os campos ocuparem toda a largura disponível */
     height: 45px; 
     padding: 10px; 
     border: 1px solid #ccc; 
     border-radius: 4px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    
 }
 
 .data-nascimento {
-    margin-bottom: 20px; /* Espaçamento abaixo do campo */
-    margin-top: 15px;
-    margin-right: 20px;
+    padding-top: 35px;
+    padding-left: 30px;
+    flex: 1; 
+    margin-left: 10px;
 }
 
-.data-nascimento p {
-    margin: 0; /* Remove margem padrão do parágrafo */
+#data-nascimento{
+    width: 105%; /* Faz todos os campos ocuparem toda a largura disponível */
+    height: 45px; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .peso {
-    margin-bottom: 15px; /* Espaçamento abaixo do campo */
-    margin-top: 15px;
-    margin-right: 90px;
+    margin-right: 135px;
+    padding-top: 35px;
+    margin-left: 50px;
 }
 
-.peso p {
-    margin: 0; /* Remove margem padrão do parágrafo */
-}
-
-.peso input {
-    width: 100%; /* Faz o campo ocupar toda a largura disponível */
+#peso{
+    width: 155%; /* Faz o campo ocupar toda a largura disponível */
     height: 45px;
-    padding: 8px; /* Adiciona preenchimento interno */
+    padding: 10px; /* Adiciona preenchimento interno */
     border: 1px solid #ccc; /* Borda padrão */
     border-radius: 4px; /* Bordas arredondadas */
     font-size: 14px; /* Tamanho da fonte */
+}
+#peso::placeholder{
+    color: black;
+}
+
+.altura{
+    padding-top: 35px;
+    padding-left: 30px;
+    flex: 1;
+}
+#altura{
+    width: 130%; /* Faz todos os campos ocuparem toda a largura disponível */
+    height: 45px; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+.endereco{
+    padding-top: 35px;
+    flex: 1; 
+    padding-left: 45px;
+    margin-right: 500px;
+    margin-left: 30px; 
+}
+#endereco{
+    width: 485%;
+    height: 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;    
+}
+.identidade{
+    padding-top: 35px; 
+    position: relative; 
+    left: -35px; 
+}
+#identidade{
+    width: 380px;
+    height: 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
