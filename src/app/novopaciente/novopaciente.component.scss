@@ -260,10 +260,10 @@ p {
     flex: 1; 
     padding-left: 45px;
     margin-right: 500px;
-    margin-left: 30px; 
+    margin-left: 35px; 
 }
 #endereco{
-    width: 485%;
+    width: 520%;
     height: 45px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -322,11 +322,11 @@ p {
     padding-top: 35px;
     flex: 1; 
     padding-left: 45px;
-    margin-right: 500px;
-    margin-left: 30px; 
+    margin-right: 390px;
+    margin-left: 75px; 
 }
 #email{
-    width: 485%;
+    width: 270%;
     height: 45px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -344,7 +344,7 @@ p {
     left: -35px; 
 }
 #profissao{
-    width: 380px;
+    width: 260px;
     height: 45px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -371,7 +371,7 @@ p {
     display: flex;
     flex-direction: column;
     margin-top: 35px; 
-    padding-left: 30px; 
+    padding-left: 30px;
     
     label {
         color: #0A74B7; 
@@ -383,8 +383,9 @@ p {
         height: 100px; 
         padding: 10px; 
         border: 1px solid #ccc; 
-        border-radius: 4px; 
-        box-sizing: border-box; 
+        border-radius: 14px; 
+        box-sizing: border-box;
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
@@ -406,89 +407,93 @@ p {
     textarea {
         width: 100%; 
         height: 200px; 
-        padding: 10px; /* Adiciona preenchimento interno */
-        border: 1px solid #ccc; /* Borda padrão */
-        border-radius: 4px; /* Bordas arredondadas */
-        box-sizing: border-box; /* Para garantir que o padding não afete a largura total */
+        padding: 10px;
+        border: 1px solid #ccc; 
+        border-radius: 14px; 
+        box-sizing: border-box;
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
-        color: black; /* Cor do texto do placeholder */
+        color: black; 
     }
 }
 
 .historia-doença {
     display: flex;
-    flex-direction: column; /* Coloca o label acima da textarea */
-    margin-top: 35px; /* Espaçamento superior */
-    padding-left: 30px; /* Alinhamento à esquerda */
+    flex-direction: column; 
+    margin-top: 35px;
+    padding-left: 30px;
     
     label {
-        color: #0A74B7; /* Cor do texto do label */
-        font-size: 14px; /* Tamanho da fonte */
+        color: #0A74B7; 
+        font-size: 14px; 
     }
 
     textarea {
-        width: 100%; /* Faz o campo ocupar toda a largura disponível */
-        height: 200px; /* Altura do campo de texto */
-        padding: 10px; /* Adiciona preenchimento interno */
-        border: 1px solid #ccc; /* Borda padrão */
-        border-radius: 4px; /* Bordas arredondadas */
-        box-sizing: border-box; /* Para garantir que o padding não afete a largura total */
+        width: 100%; 
+        height: 200px; 
+        padding: 10px; 
+        border: 1px solid #ccc;
+        border-radius: 14px; 
+        box-sizing: border-box;
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
-        color: black; /* Cor do texto do placeholder */
+        color: black; 
     }
 }
 
 .historia-patologica {
     display: flex;
-    flex-direction: column; /* Coloca o label acima da textarea */
-    margin-top: 35px; /* Espaçamento superior */
-    padding-left: 30px; /* Alinhamento à esquerda */
+    flex-direction: column; 
+    margin-top: 35px;
+    padding-left: 30px; 
     
     label {
-        color: #0A74B7; /* Cor do texto do label */
-        font-size: 14px; /* Tamanho da fonte */
+        color: #0A74B7;
+        font-size: 14px; 
     }
 
     textarea {
-        width: 100%; /* Faz o campo ocupar toda a largura disponível */
-        height: 200px; /* Altura do campo de texto */
-        padding: 10px; /* Adiciona preenchimento interno */
-        border: 1px solid #ccc; /* Borda padrão */
-        border-radius: 4px; /* Bordas arredondadas */
-        box-sizing: border-box; /* Para garantir que o padding não afete a largura total */
+        width: 100%; 
+        height: 200px;
+        padding: 10px; 
+        border: 1px solid #ccc;
+        border-radius: 14px; 
+        box-sizing: border-box; 
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
-        color: black; /* Cor do texto do placeholder */
+        color: black;
     }
 }
 
 .habitos {
     display: flex;
-    flex-direction: column; /* Coloca o label acima da textarea */
-    margin-top: 35px; /* Espaçamento superior */
-    padding-left: 30px; /* Alinhamento à esquerda */
+    flex-direction: column; 
+    margin-top: 35px; 
+    padding-left: 30px; 
     
     label {
-        color: #0A74B7; /* Cor do texto do label */
-        font-size: 14px; /* Tamanho da fonte */
+        color: #0A74B7; 
+        font-size: 14px; 
     }
 
     textarea {
-        width: 100%; /* Faz o campo ocupar toda a largura disponível */
-        height: 100px; /* Altura do campo de texto */
-        padding: 10px; /* Adiciona preenchimento interno */
-        border: 1px solid #ccc; /* Borda padrão */
-        border-radius: 4px; /* Bordas arredondadas */
-        box-sizing: border-box; /* Para garantir que o padding não afete a largura total */
+        width: 100%; 
+        height: 100px; 
+        padding: 10px; 
+        border: 1px solid #ccc; 
+        border-radius: 14px;
+        box-sizing: border-box;
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
-        color: black; /* Cor do texto do placeholder */
+        color: black;
     }
 }
 
@@ -508,8 +513,9 @@ p {
         height: 100px; 
         padding: 10px; 
         border: 1px solid #ccc; 
-        border-radius: 4px; 
+        border-radius: 14px; 
         box-sizing: border-box;
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
@@ -544,8 +550,9 @@ p {
         height: 150px;
         padding: 10px; 
         border: 1px solid #ccc; 
-        border-radius: 4px; 
+        border-radius: 14px; 
         box-sizing: border-box; 
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
@@ -569,8 +576,9 @@ p {
         height: 200px;
         padding: 10px;
         border: 1px solid #ccc; 
-        border-radius: 4px; 
+        border-radius: 14px; 
         box-sizing: border-box; 
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
@@ -605,8 +613,9 @@ p {
         height: 150px; 
         padding: 10px; 
         border: 1px solid #ccc;
-        border-radius: 4px; 
+        border-radius: 14px; 
         box-sizing: border-box;
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
@@ -630,8 +639,9 @@ p {
         height: 150px; 
         padding: 10px; 
         border: 1px solid #ccc; 
-        border-radius: 4px; 
+        border-radius: 14px; 
         box-sizing: border-box; 
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
@@ -657,6 +667,7 @@ p {
         border: 1px solid #ccc; 
         border-radius: 4px; 
         box-sizing: border-box; 
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
@@ -691,8 +702,9 @@ p {
         height: 300px; 
         padding: 10px; 
         border: 1px solid #ccc; 
-        border-radius: 4px; 
+        border-radius: 14px; 
         box-sizing: border-box; 
+        margin-top: 10px; 
     }
 
     textarea::placeholder {
