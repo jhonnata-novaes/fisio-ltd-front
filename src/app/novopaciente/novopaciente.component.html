@@ -22,6 +22,7 @@
     </ul>
 </div>
 
+<form (ngSubmit)="salvarPaciente()" #pacienteForm="ngForm">
 <div class="main-content">
     <h1>NOVO PACIENTE</h1>
     <div class="dados-basicos">
@@ -30,15 +31,15 @@
     <div class="form-container">
         <div class="nome-paciente">
             <p>NOME:</p>
-            <input placeholder="Insira seu nome" type="text" id="nome" name="nome" ngModel required>
+            <input placeholder="Insira seu nome" type="text" id="nome" name="nome" [(ngModel)]="paciente.nome">
         </div>
         <div class="data-avaliacao">
             <p>DATA DA AVALIAÇÃO:</p>
-            <input type="date" id="data" name="data" ngModel required>
+            <input type="date" id="data" name="data" [(ngModel)]="paciente.dataAvaliacao">
         </div>
         <div class="estado-civil">
             <p>ESTADO CIVIL:</p>
-            <select id="estado-civil" name="estado-civil" required>
+            <select id="estado-civil" name="estado-civil" [(ngModel)]="paciente.estadoCivil">
                 <option value="" disabled selected>Selecione uma opção</option>
                 <option value="solteiro">Solteiro(a)</option>
                 <option value="casado">Casado(a)</option>
@@ -50,7 +51,7 @@
     <div class="form-container">
         <div class="nacionalidade">
             <p>NACIONALIDADE:</p>
-            <select id="nacionalidade" name="nacionalidade" required>
+            <select id="nacionalidade" name="nacionalidade" [(ngModel)]="paciente.nacionalidade">
                 <option value="" disabled selected>Selecione uma opção</option>
                 <option value="brasileiro">Brasileiro</option>
                 <option value="estrangeiro">Estrangeiro</option>
@@ -59,7 +60,7 @@
         
         <div class="naturalidade">
             <p>NATURALIDADE (UF):</p>
-            <select id="naturalidade" name="naturalidade" required>
+            <select id="naturalidade" name="naturalidade" [(ngModel)]="paciente.naturalidade">
                 <option value="" disabled selected>Selecione uma opção</option>
                 <option value="sp">São Paulo</option>
                 <option value="rj">Rio de Janeiro</option>
@@ -71,34 +72,34 @@
         
         <div class="data-nascimento">
             <p>DATA DE NASCIMENTO:</p>
-            <input type="date" id="data-nascimento" name="data-nascimento" ngModel required>
+            <input type="date" id="data-nascimento" name="data-nascimento" [(ngModel)]="paciente.dataNascimento">
         </div>
     
         <div class="peso">
             <p>PESO (kg):</p>
-            <input type="number" id="peso" name="peso" ngModel required placeholder="Insira seu peso">
+            <input type="number" id="peso" name="peso" [(ngModel)]="paciente.peso" placeholder="Insira seu peso">
         </div>        
     </div>
     <div class="form-container">
         <div class="altura">
             <p>ALTURA:</p>
-            <input type="text" id="altura" name="altura" ngModel required placeholder="Insira sua altura">
+            <input type="text" id="altura" name="altura" [(ngModel)]="paciente.altura" placeholder="Insira sua altura">
         </div>
 
         <div class="endereco">
             <p>ENDEREÇO:</p>
-            <input type="text" id="endereco" name="endereco" ngModel required placeholder="Insira seu endereço">
+            <input type="text" id="endereco" name="endereco" [(ngModel)]="paciente.endereco" placeholder="Insira seu endereço">
         </div>
 
         <div class="identidade">
             <p> N° IDENTIDADE:</p>
-            <input type="text" maxlenght="10" id="identidade" name="identidade" ngModel required placeholder="00.000.000-0">
+            <input type="text" maxlength="10" id="identidade" name="identidade" [(ngModel)]="paciente.numeroIdentidade" placeholder="00.000.000-0">
         </div>
     </div>
     <div class="form-container">
         <div class="telefone">
             <p>TELEFONE:</p>
-            <input type="text" id="telefone" name="telefone" ngModel required placeholder="(21) XXXXX-XXXX">
+            <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" placeholder="(21) XXXXX-XXXX">
         </div>
 
         <div class="email">
