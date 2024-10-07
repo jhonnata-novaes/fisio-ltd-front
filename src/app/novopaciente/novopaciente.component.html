@@ -22,7 +22,7 @@
     </ul>
 </div>
 
-<form (ngSubmit)="salvarPaciente()" #pacienteForm="ngForm">
+<form [formGroup]="form">
 <div class="main-content">
     <h1>NOVO PACIENTE</h1>
     <div class="dados-basicos">
@@ -31,15 +31,16 @@
     <div class="form-container">
         <div class="nome-paciente">
             <p>NOME:</p>
-            <input placeholder="Insira seu nome" type="text" id="nome" name="nome" [(ngModel)]="paciente.nome">
+            <input placeholder="Insira seu nome" type="text" formControlName="nome">
         </div>
         <div class="data-avaliacao">
             <p>DATA DA AVALIAÇÃO:</p>
-            <input type="date" id="data" name="data" [(ngModel)]="paciente.dataAvaliacao">
+            <input type="date" formControlName="dataAvaliacao">
         </div>
+        
         <div class="estado-civil">
             <p>ESTADO CIVIL:</p>
-            <select id="estado-civil" name="estado-civil" [(ngModel)]="paciente.estadoCivil">
+            <select formControlName="estadoCivil">
                 <option value="" disabled selected>Selecione uma opção</option>
                 <option value="solteiro">Solteiro(a)</option>
                 <option value="casado">Casado(a)</option>
@@ -51,7 +52,7 @@
     <div class="form-container">
         <div class="nacionalidade">
             <p>NACIONALIDADE:</p>
-            <select id="nacionalidade" name="nacionalidade" [(ngModel)]="paciente.nacionalidade">
+            <select formControlName="nacionalidade">
                 <option value="" disabled selected>Selecione uma opção</option>
                 <option value="brasileiro">Brasileiro</option>
                 <option value="estrangeiro">Estrangeiro</option>
@@ -60,7 +61,7 @@
         
         <div class="naturalidade">
             <p>NATURALIDADE (UF):</p>
-            <select id="naturalidade" name="naturalidade" [(ngModel)]="paciente.naturalidade">
+            <select formControlName="naturalidade">
                 <option value="" disabled selected>Selecione uma opção</option>
                 <option value="sp">São Paulo</option>
                 <option value="rj">Rio de Janeiro</option>
@@ -72,49 +73,49 @@
         
         <div class="data-nascimento">
             <p>DATA DE NASCIMENTO:</p>
-            <input type="date" id="data-nascimento" name="data-nascimento" [(ngModel)]="paciente.dataNascimento">
+            <input type="date" formControlName="dataNascimento">
         </div>
     
         <div class="peso">
             <p>PESO (kg):</p>
-            <input type="number" id="peso" name="peso" [(ngModel)]="paciente.peso" placeholder="Insira seu peso">
+            <input type="number" formControlName="peso" placeholder="Insira seu peso">
         </div>        
     </div>
     <div class="form-container">
         <div class="altura">
             <p>ALTURA:</p>
-            <input type="text" id="altura" name="altura" [(ngModel)]="paciente.altura" placeholder="Insira sua altura">
+            <input type="text" formControlName="altura" placeholder="Insira sua altura">
         </div>
 
         <div class="endereco">
             <p>ENDEREÇO:</p>
-            <input type="text" id="endereco" name="endereco" [(ngModel)]="paciente.endereco" placeholder="Insira seu endereço">
+            <input type="text" formControlName="endereco" placeholder="Insira seu endereço">
         </div>
 
         <div class="identidade">
             <p> N° IDENTIDADE:</p>
-            <input type="text" maxlength="10" id="identidade" name="identidade" [(ngModel)]="paciente.numeroIdentidade" placeholder="00.000.000-0">
+            <input type="text" maxlength="10" formControlName="numeroIdentidade" placeholder="00.000.000-0">
         </div>
     </div>
     <div class="form-container">
         <div class="telefone">
             <p>TELEFONE:</p>
-            <input type="text" id="telefone" name="telefone" [(ngModel)]="paciente.telefone" placeholder="(21) XXXXX-XXXX">
+            <input type="text" formControlName="telefone" placeholder="(21) XXXXX-XXXX">
         </div>
 
         <div class="email">
             <p>EMAIL:</p>
-            <input type="email" id="email" name="email" ngModel required placeholder="Insira seu email">
+            <input type="email" formControlName="email" placeholder="Insira seu email">
         </div>
 
         <div class="profissao">
             <p>PROFISSÃO:</p>
-            <input type="profissao" id="profissao" name="profissao" ngModel required placeholder="Insira sua profissão">
+            <input type="profissao" formControlName="profissao" placeholder="Insira sua profissão">
         </div>
     </div>
     <div class="diagnostico-container">
         <label for="diagnostico">DIAGNÓSTICO CLÍNICO:</label>
-        <textarea id="diagnostico" placeholder="Insira o diagnóstico "></textarea>
+        <textarea formControlName="diagnosticoClinico" placeholder="Insira o diagnóstico "></textarea>
     </div>
     <div class="dados-ficha">
         <h6>DADOS FICHA ANAMNESE</h6>
@@ -173,11 +174,11 @@
         <textarea id="plano" placeholder="Descrição dos procedimentos fisioterápicos propostos relatando os recursos, métodos e técnicas a serem utilizados e o(s) objetivo(s) terapêutico(s) a ser(em) alcançado(s)"></textarea>
     </div>
     <div class="button-container">
-        <button class="button button-save">
+        <button class="button button-save" (click)="salvar()" [disabled]="form.invalid">
             <img src="/assets/save.png" alt="Salvar" class="icon">
             Salvar Dados
         </button>
-        <button class="button button-finish" (click)="salvarPaciente()">
+        <button class="button button-finish">
             <img src="/assets/finalizar.png" alt="Finalizar" class="icon">
             Finalizar Tratamento
           </button>
