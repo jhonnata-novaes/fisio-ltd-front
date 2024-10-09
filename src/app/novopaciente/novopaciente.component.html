@@ -122,56 +122,56 @@
     </div>
     <div class="queixa-container">
         <label for="queixa">QUEIXA PRINCIPAL (QP):</label>
-        <textarea id="queixa" placeholder="Insira a queixa principal do paciente"></textarea>
+        <textarea formControlName="queixa" placeholder="Insira a queixa principal do paciente"></textarea>
     </div>  
     <div class="historia-doença">
         <label for="historia-doença">HISTÓRIA DA DOENÇA ATUAL (HDA):</label>
-        <textarea id="historia-doença" placeholder="Insira a história da doença atual do paciente"></textarea>
+        <textarea formControlName="historiadoenca" placeholder="Insira a história da doença atual do paciente"></textarea>
     </div> 
     <div class="historia-patologica">
         <label for="historia-patologica">HISTÓRIA PATÓLOGICA PREGRESSA (HPP):</label>
-        <textarea id="historia-patologica" placeholder="Insira a história da doença atual do paciente"></textarea>
+        <textarea formControlName="historiapatologica" placeholder="Insira a história da doença atual do paciente"></textarea>
     </div> 
     <div class="habitos">
         <label for="habitos">HABITOS DE VIDA:</label>
-        <textarea id="habitos" placeholder="Insira os hábitos de vida do paciente "></textarea>
+        <textarea formControlName="habitos" placeholder="Insira os hábitos de vida do paciente "></textarea>
     </div>   
     <div class="historia-familiar">
         <label for="historia-familiar">HISTÓRIA FAMILIAR:</label>
-        <textarea id="historia-familiar" placeholder="Insira a história familiar do paciente "></textarea>
+        <textarea formControlName="historiafamiliar" placeholder="Insira a história familiar do paciente "></textarea>
     </div> 
     <div class="exames">
         <h6>EXAMES</h6>
     </div>  
     <div class="exames-complementares">
         <label for="exames-complementares">EXAMES COMPLEMENTARES:</label>
-        <textarea id="exames-complementares" placeholder="Insira os exames complementares do paciente "></textarea>
+        <textarea formControlName="examesComplementares" placeholder="Insira os exames complementares do paciente "></textarea>
     </div>
     <div class="exame-fisico">
         <label for="exame-fisico">EXAME FÍSICO-FUNCIONAL(CINÉTICO-FUNCIONAL):</label>
-        <textarea id="exame-fisico" placeholder="Insira o exame físico-funcional do paciente"></textarea>
+        <textarea formControlName="examefisico" placeholder="Insira o exame físico-funcional do paciente"></textarea>
     </div>       
     <div class="proagnostico">
         <h6>DIAGNÓSTICO/PROAGNÓSTICO</h6>
     </div>
     <div class="diagnostico-fisio">
         <label for="diagnostico-fisio">DIAGNÓSTICO FISIOTERAPÊUTICO:</label>
-        <textarea id="diagnostico-fisio" placeholder="Descrição técnica dos desvios físico-funcionais de maior relevância"></textarea>
+        <textarea formControlName="diagnosticoFisio" placeholder="Descrição técnica dos desvios físico-funcionais de maior relevância"></textarea>
     </div> 
     <div class="proagnostico-fisio">
         <label for="proagnostico-fisio">PROAGNÓSTICO FISIOTERAPÊUTICO:</label>
-        <textarea id="proagnostico-fisio" placeholder="Compreende a estimativa de evolução do caso em relação ao diagnostico fisioterapêutico"></textarea>
+        <textarea formControlName="proagnosticoFisio" placeholder="Compreende a estimativa de evolução do caso em relação ao diagnostico fisioterapêutico"></textarea>
     </div> 
     <div class="quantidade-atendimentos">
         <label for="quantidade">Quantidade Provável de Atendimentos</label>
-        <textarea id="quantidade" placeholder="Digite a quantidade"></textarea>
+        <textarea formControlName="quantidade" placeholder="Digite a quantidade"></textarea>
     </div>
     <div class="tratamento">
         <h6>TRATAMENTO PROPOSTO</h6>
     </div> 
     <div class="plano">
         <label for="plano">PLANO TERAPÊUTICO:</label>
-        <textarea id="plano" placeholder="Descrição dos procedimentos fisioterápicos propostos relatando os recursos, métodos e técnicas a serem utilizados e o(s) objetivo(s) terapêutico(s) a ser(em) alcançado(s)"></textarea>
+        <textarea formControlName="plano" placeholder="Descrição dos procedimentos fisioterápicos propostos relatando os recursos, métodos e técnicas a serem utilizados e o(s) objetivo(s) terapêutico(s) a ser(em) alcançado(s)"></textarea>
     </div>
     <div class="button-container">
         <button class="button button-save" (click)="salvar()" [disabled]="form.invalid">

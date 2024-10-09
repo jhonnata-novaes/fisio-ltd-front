@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PacienteService } from '../services/paciente.service';  // Importar o serviço
+import { PacienteService } from '../services/paciente.service';  
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,26 +10,38 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class NovopacienteComponent {
 
   form = new FormGroup({
-    nome: new FormControl<string>('', Validators.required),
-    dataAvaliacao: new FormControl<Date | null>(null, Validators.required),
-    estadoCivil: new FormControl<string>('', Validators.required),
-    nacionalidade: new FormControl<string>('', Validators.required),
-    naturalidade: new FormControl<string>('', Validators.required),
-    dataNascimento: new FormControl<Date | null>(null, Validators.required),
-    peso: new FormControl<string>('', Validators.required),
-    altura: new FormControl<string>('', Validators.required),
-    endereco: new FormControl<string>('', Validators.required),
-    numeroIdentidade: new FormControl<string>('', Validators.required),
-    telefone: new FormControl<string>('', Validators.required),
-    email: new FormControl<string>('', Validators.required),
-    profissao: new FormControl<string>('', Validators.required),
-    diagnosticoClinico: new FormControl<string>('', Validators.required),
+      nome: new FormControl<string>('', Validators.required),
+      dataAvaliacao: new FormControl<Date | null>(null, Validators.required),
+      estadoCivil: new FormControl<string>('', Validators.required),
+      nacionalidade: new FormControl<string>('', Validators.required),
+      naturalidade: new FormControl<string>('', Validators.required),
+      dataNascimento: new FormControl<Date | null>(null, Validators.required),
+      peso: new FormControl<string>('', Validators.required),
+      altura: new FormControl<string>('', Validators.required),
+      endereco: new FormControl<string>('', Validators.required),
+      numeroIdentidade: new FormControl<string>('', Validators.required),
+      telefone: new FormControl<string>('', Validators.required),
+      email: new FormControl<string>('', Validators.required),
+      profissao: new FormControl<string>('', Validators.required),
+      diagnosticoClinico: new FormControl<string>('', Validators.required),
+      queixa: new FormControl<string>('', Validators.required),
+      historiadoenca: new FormControl<string>('', Validators.required),
+      historiapatologica: new FormControl<string>('', Validators.required),
+      habitos: new FormControl<string>('', Validators.required),
+      historiafamiliar: new FormControl<string>('', Validators.required),
+      examesComplementares: new FormControl<string>('', Validators.required),
+      examefisico: new FormControl<string>('', Validators.required),
+      diagnosticoFisio: new FormControl<string>('', Validators.required),
+      proagnosticoFisio: new FormControl<string>('', Validators.required),
+      quantidade: new FormControl<string>('', Validators.required),
+      plano: new FormControl<string>('', Validators.required),
   });
 
   constructor(private pacienteService: PacienteService) { }
 
   salvar() {
-    if (this.form.valid) {  // Verifica se o formulário é válido
+    console.log(this.form.value)
+    if (this.form.valid) {
       const formValues = this.form.value;
 
       // Convertendo a data de nascimento e data de avaliação para UTC
@@ -46,11 +58,77 @@ export class NovopacienteComponent {
       this.pacienteService.salvarPaciente(pacienteData).subscribe({
         next: (response) => {
           console.log('Paciente salvo com sucesso:', response);
-          // Aqui você pode adicionar lógica adicional como redirecionar ou mostrar uma mensagem de sucesso
+
+          // Enviar dados da ficha de anamnese
+          const fichaAnamneseData = {
+            pacienteId: response.id, // Usando o ID do paciente recém-criado
+            queixa: formValues.queixa,
+            historiaDoencaAtual: formValues.historiadoenca,
+            historiaPatologica: formValues.historiapatologica,
+            habitosVida: formValues.habitos,
+            historiaFamiliar: formValues.historiafamiliar,
+          };
+
+          this.pacienteService.salvarFichaAnamnese(fichaAnamneseData).subscribe({
+            next: (fichaResponse) => {
+              console.log('Ficha de Anamnese salva com sucesso:', fichaResponse);
+            },
+            error: (error) => {
+              console.error('Erro ao salvar ficha de anamnese:', error);
+            }
+          });
+
+          // Enviar dados dos exames
+          const examesData = {
+            pacienteId: response.id, // Usando o ID do paciente recém-criado
+            examesComplementares: formValues.examesComplementares,
+            exameFisico: formValues.examefisico,
+          };
+
+          this.pacienteService.salvarExames(examesData).subscribe({
+            next: (examesResponse) => {
+              console.log('Exames salvos com sucesso:', examesResponse);
+            },
+            error: (error) => {
+              console.error('Erro ao salvar exames:', error);
+            }
+          });
+
+          // Enviar dados do diagnóstico prognóstico
+          const diagnosticoData = {
+            pacienteId: response.id, // Usando o ID do paciente recém-criado
+            diagnosticoFisio: formValues.diagnosticoFisio,
+            prognosticoFisio: formValues.proagnosticoFisio,
+          };
+
+          this.pacienteService.salvarDiagnosticoPrognostico(diagnosticoData).subscribe({
+            next: (diagnosticoResponse) => {
+              console.log('Diagnóstico e prognóstico salvos com sucesso:', diagnosticoResponse);
+            },
+            error: (error) => {
+              console.error('Erro ao salvar diagnóstico e prognóstico:', error);
+            }
+          });
+
+          // Enviar dados do tratamento proposto
+          const tratamentoData = {
+            pacienteId: response.id, // Usando o ID do paciente recém-criado
+            quantidade: formValues.quantidade,
+            plano: formValues.plano,
+          };
+
+          this.pacienteService.salvarTratamentoProposto(tratamentoData).subscribe({
+            next: (tratamentoResponse) => {
+              console.log('Tratamento proposto salvo com sucesso:', tratamentoResponse);
+            },
+            error: (error) => {
+              console.error('Erro ao salvar tratamento proposto:', error);
+            }
+          });
+
         },
         error: (error) => {
           console.error('Erro ao salvar paciente:', error);
-          // Lógica de tratamento de erro, como mostrar uma mensagem ao usuário
         }
       });
     } else {
