@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PacienteService } from '../services/paciente.service';  
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PacienteService } from '../services/paciente.service';
 
 @Component({
   selector: 'app-novopaciente',
@@ -8,8 +8,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./novopaciente.component.scss']
 })
 export class NovopacienteComponent {
+  form: FormGroup;
 
-  form = new FormGroup({
+  constructor(private pacienteService: PacienteService) {
+    this.form = new FormGroup({
       nome: new FormControl<string>('', Validators.required),
       dataAvaliacao: new FormControl<Date | null>(null, Validators.required),
       estadoCivil: new FormControl<string>('', Validators.required),
@@ -21,7 +23,7 @@ export class NovopacienteComponent {
       endereco: new FormControl<string>('', Validators.required),
       numeroIdentidade: new FormControl<string>('', Validators.required),
       telefone: new FormControl<string>('', Validators.required),
-      email: new FormControl<string>('', Validators.required),
+      email: new FormControl<string>('', [Validators.required, Validators.email]),
       profissao: new FormControl<string>('', Validators.required),
       diagnosticoClinico: new FormControl<string>('', Validators.required),
       queixa: new FormControl<string>('', Validators.required),
@@ -35,104 +37,121 @@ export class NovopacienteComponent {
       proagnosticoFisio: new FormControl<string>('', Validators.required),
       quantidade: new FormControl<string>('', Validators.required),
       plano: new FormControl<string>('', Validators.required),
-  });
-
-  constructor(private pacienteService: PacienteService) { }
+    });
+  }
 
   salvar() {
-    console.log(this.form.value)
     if (this.form.valid) {
       const formValues = this.form.value;
 
-      // Convertendo a data de nascimento e data de avaliação para UTC
-      const dataNascimento = formValues.dataNascimento ? new Date(formValues.dataNascimento) : null;
-      const dataAvaliacao = formValues.dataAvaliacao ? new Date(formValues.dataAvaliacao) : null;
-
-      const pacienteData = {
-        ...formValues,
-        dataNascimento: dataNascimento ? new Date(Date.UTC(dataNascimento.getFullYear(), dataNascimento.getMonth(), dataNascimento.getDate())) : null,
-        dataAvaliacao: dataAvaliacao ? new Date(Date.UTC(dataAvaliacao.getFullYear(), dataAvaliacao.getMonth(), dataAvaliacao.getDate())) : null
-      };
-
-      // Envia os dados para o serviço para salvar o paciente
-      this.pacienteService.salvarPaciente(pacienteData).subscribe({
-        next: (response) => {
-          console.log('Paciente salvo com sucesso:', response);
-
-          // Enviar dados da ficha de anamnese
-          const fichaAnamneseData = {
-            pacienteId: response.id, // Usando o ID do paciente recém-criado
-            queixa: formValues.queixa,
-            historiaDoencaAtual: formValues.historiadoenca,
-            historiaPatologica: formValues.historiapatologica,
-            habitosVida: formValues.habitos,
-            historiaFamiliar: formValues.historiafamiliar,
-          };
-
-          this.pacienteService.salvarFichaAnamnese(fichaAnamneseData).subscribe({
-            next: (fichaResponse) => {
-              console.log('Ficha de Anamnese salva com sucesso:', fichaResponse);
-            },
-            error: (error) => {
-              console.error('Erro ao salvar ficha de anamnese:', error);
-            }
-          });
-
-          // Enviar dados dos exames
-          const examesData = {
-            pacienteId: response.id, // Usando o ID do paciente recém-criado
-            examesComplementares: formValues.examesComplementares,
-            exameFisico: formValues.examefisico,
-          };
-
-          this.pacienteService.salvarExames(examesData).subscribe({
-            next: (examesResponse) => {
-              console.log('Exames salvos com sucesso:', examesResponse);
-            },
-            error: (error) => {
-              console.error('Erro ao salvar exames:', error);
-            }
-          });
-
-          // Enviar dados do diagnóstico prognóstico
-          const diagnosticoData = {
-            pacienteId: response.id, // Usando o ID do paciente recém-criado
-            diagnosticoFisio: formValues.diagnosticoFisio,
-            prognosticoFisio: formValues.proagnosticoFisio,
-          };
-
-          this.pacienteService.salvarDiagnosticoPrognostico(diagnosticoData).subscribe({
-            next: (diagnosticoResponse) => {
-              console.log('Diagnóstico e prognóstico salvos com sucesso:', diagnosticoResponse);
-            },
-            error: (error) => {
-              console.error('Erro ao salvar diagnóstico e prognóstico:', error);
-            }
-          });
-
-          // Enviar dados do tratamento proposto
-          const tratamentoData = {
-            pacienteId: response.id, // Usando o ID do paciente recém-criado
-            quantidade: formValues.quantidade,
-            plano: formValues.plano,
-          };
-
-          this.pacienteService.salvarTratamentoProposto(tratamentoData).subscribe({
-            next: (tratamentoResponse) => {
-              console.log('Tratamento proposto salvo com sucesso:', tratamentoResponse);
-            },
-            error: (error) => {
-              console.error('Erro ao salvar tratamento proposto:', error);
-            }
-          });
-
-        },
-        error: (error) => {
-          console.error('Erro ao salvar paciente:', error);
-        }
-      });
+      this.salvarPaciente(formValues);
     } else {
-      console.log('Formulário inválido');
+      console.error('Formulário inválido');
     }
+  }
+
+  private salvarPaciente(formValues: any) {
+    const pacienteData = {
+      nome: formValues.nome,
+      dataAvaliacao: formValues.dataAvaliacao,
+      estadoCivil: formValues.estadoCivil,
+      nacionalidade: formValues.nacionalidade,
+      naturalidade: formValues.naturalidade,
+      dataNascimento: formValues.dataNascimento,
+      peso: formValues.peso,
+      altura: formValues.altura,
+      endereco: formValues.endereco,
+      numeroIdentidade: formValues.numeroIdentidade,
+      telefone: formValues.telefone,
+      email: formValues.email,
+      profissao: formValues.profissao,
+      diagnosticoClinico: formValues.diagnosticoClinico,
+    };
+
+    this.pacienteService.salvarPaciente(pacienteData).subscribe({
+      next: (response: any) => {
+        console.log('Paciente salvo com sucesso!', response);
+        
+        this.salvarFichaAnamnese(response.id, formValues);
+      },
+      error: (error: any) => {
+        console.error('Erro ao salvar paciente:', error);
+      }
+    });
+  }
+
+  private salvarFichaAnamnese(pacienteId: number, formValues: any) {
+    const fichaAnamneseData = {
+      dadosBasicosId: pacienteId,
+      queixa: formValues.queixa,
+      historiaDoencaAtual: formValues.historiadoenca,
+      historiaPatologica: formValues.historiapatologica,
+      habitosVida: formValues.habitos,
+      historiaFamiliar: formValues.historiafamiliar,
+    };
+
+    this.pacienteService.salvarFichaAnamnese(fichaAnamneseData).subscribe({
+      next: (examesResponse: any) => {
+        console.log('Ficha de anamnese salva com sucesso!', examesResponse);
+        
+        this.salvarExames(pacienteId, formValues);
+      },
+      error: (examesError: any) => {
+        console.error('Erro ao salvar ficha de anamnese:', examesError);
+      }
+    });
+  }
+
+  private salvarExames(pacienteId: number, formValues: any) {
+    const examesData = {
+      dadosBasicosId: pacienteId,
+      examesComplementares: formValues.examesComplementares,
+      examefisico: formValues.examefisico,
+    };
+
+    this.pacienteService.salvarExames(examesData).subscribe({
+      next: (examesResponse: any) => {
+        console.log('Exames salvos com sucesso!', examesResponse);
+        this.salvarDiagnostico(pacienteId, formValues);
+      },
+      error: (examesError: any) => {
+        console.error('Erro ao salvar exames:', examesError);
+      }
+    });
+  }
+  private salvarDiagnostico(pacienteId: number, formValues: any) {
+    const diagnosticoData = {
+      dadosBasicosId: pacienteId,
+      diagnosticoFisio: formValues.diagnosticoFisio,
+      prognosticofisio: formValues.proagnosticoFisio,
+      quantidade: formValues.quantidade,
+    };
+
+    this.pacienteService.salvarDiagnostico(diagnosticoData).subscribe({
+      next: (diagnosticoResponse: any) => {
+        console.log('Diagnostico salvo com sucesso!', diagnosticoResponse);
+        this.salvarTratamentoProposto(pacienteId, formValues);
+        
+      },
+      error: (diagnosticoError: any) => {
+        console.error('Erro ao salvar diagnostico:', diagnosticoError);
+      }
+    });
+  }
+  private salvarTratamentoProposto(pacienteId: number, formValues: any) {
+    const tratamentoData = {
+      dadosBasicosId: pacienteId,
+      plano: formValues.plano,
+    };
+
+    this.pacienteService.salvarTratamentoProposto(tratamentoData).subscribe({
+      next: (tratamentoResponse: any) => {
+        console.log('Tratamento salvo com sucesso!', tratamentoResponse);
+        
+      },
+      error: (tratamentoError: any) => {
+        console.error('Erro ao salvar tratamento:', tratamentoError);
+      }
+    });
   }
 }
