@@ -21,6 +21,12 @@ export class PacienteService {
       .pipe(catchError(this.handleError));
   }
 
+  atualizarPaciente(id: number, pacienteData: any): Observable<any> {
+    return this.http
+      .put(`${this.apiUrl}/${id}`, pacienteData)
+      .pipe(catchError(this.handleError));
+  }
+
   salvarFichaAnamnese(fichaAnamneseData: any): Observable<any> {
     return this.http
       .post(this.fichaAnamneseUrl, fichaAnamneseData)
@@ -45,10 +51,14 @@ export class PacienteService {
       .pipe(catchError(this.handleError));
   }
 
-  // Método para buscar pacientes
   buscarPacientes(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
+  
+  getPacientePorId(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
+  }
+    
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

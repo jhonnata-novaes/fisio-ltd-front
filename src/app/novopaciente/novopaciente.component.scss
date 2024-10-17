@@ -4,23 +4,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: white;
-}
-
-.relative-container {
-    position: relative; /* Define um contêiner relativo */
-}
-
-.logoFisio {
-    width: 59px;
-    height: auto;
-    position: absolute; /* Remove o elemento do fluxo normal */
-    top: -23px; /* Ajuste conforme necessário */
-    right: 0; /* Alinha a imagem à direita do contêiner */
-}
-.tituloFisioterapia {
-    left: 400px; /* Aumenta o espaço à esquerda */  /* Ajusta o espaço acima, se necessário */
-    /* Você pode usar margin-right para mover à direita */
 }
 
 .navbar-brand {
@@ -32,12 +15,12 @@
     height: 50px; 
     width: 2px; 
     background-color: white;
-    margin-left: 175px; 
+    margin-left: 90px; 
     margin-right: -35px;
 }
 
 #dashboard {
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .ml-auto {
@@ -51,8 +34,8 @@
     padding: 5px;
     transform: rotate(45deg);
     margin-left: 15px;
-    position: relative; 
-    top: -2px; 
+    position: relative;
+    top: -2px;  
 }
 
 .sidebar {

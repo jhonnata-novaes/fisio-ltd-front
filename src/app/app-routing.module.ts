@@ -5,13 +5,14 @@ import { LoginComponent } from './login/login.component';
 import { NovopacienteComponent } from './novopaciente/novopaciente.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'pacientes', component: PacientesComponent},
-  {path: 'novopaciente', component: NovopacienteComponent}
+  { path: '', component: LoginComponent },
+  { path: 'pacientes', component: PacientesComponent },
+  { path: 'novopaciente', component: NovopacienteComponent }, // Para cadastro de novo paciente
+  { path: 'editarpaciente/:id', component: NovopacienteComponent } // Para edição de paciente existente
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

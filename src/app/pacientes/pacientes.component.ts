@@ -22,6 +22,10 @@ export class PacientesComponent implements OnInit {
     this.router.navigate(['novopaciente']); // Navega para a tela de cadastro de novos pacientes
   }
 
+  visualizarPaciente(id: number) {
+    this.router.navigate(['editarpaciente', id]); // Navega para a tela de edição passando o ID do paciente
+  }
+
   // Método para obter pacientes
   obterPacientes() {
     this.pacienteService.buscarPacientes().subscribe({

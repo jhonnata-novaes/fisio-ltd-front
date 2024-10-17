@@ -66,8 +66,8 @@
         <td>{{ paciente.nome }}</td>
         <!-- Substitua 'nome' pelo campo correto do seu modelo -->
         <td>
-          <button class="view-button">Visualizar</button>
-        </td>
+          <button class="view-button" (click)="visualizarPaciente(paciente.id)">Visualizar</button>
+        </td>        
       </tr>
       <tr *ngIf="pacientes.length === 0">
         <td colspan="3" style="text-align: center">
