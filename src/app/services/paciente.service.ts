@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +27,57 @@ export class PacienteService {
       .pipe(catchError(this.handleError));
   }
 
+  atualizarFichaAnamnese(id: number, pacienteData: any): Observable<any> {
+    // Garantir que o ID no corpo seja o mesmo que na URL
+    const dadosParaEnviar = {
+      ...pacienteData,
+      id: id  // Adiciona o ID no corpo da requisição
+    };
+
+    return this.http.put(`${this.fichaAnamneseUrl}/${id}`, dadosParaEnviar).pipe(
+      tap(response => console.log('Resposta do servidor:', response)),
+      catchError(this.handleError)
+    );
+  }
+
+  atualizarExames(id: number, pacienteData: any): Observable<any> {
+    // Garantir que o ID no corpo seja o mesmo que na URL
+    const dadosParaEnviar = {
+      ...pacienteData,
+      id: id  // Adiciona o ID no corpo da requisição
+    };
+  
+    return this.http.put(`${this.examesUrl}/${id}`, dadosParaEnviar).pipe(
+      tap(response => console.log('Resposta do servidor:', response)),
+      catchError(this.handleError)
+    );
+  }
+  
+  atualizarDiagnostico(id: number, pacienteData: any): Observable<any> {
+    // Garantir que o ID no corpo seja o mesmo que na URL
+    const dadosParaEnviar = {
+      ...pacienteData,
+      id: id  // Adiciona o ID no corpo da requisição
+    };
+  
+    return this.http.put(`${this.diagnosticoUrl}/${id}`, dadosParaEnviar).pipe(
+      tap(response => console.log('Resposta do servidor:', response)),
+      catchError(this.handleError)
+    );
+  }
+  
+  atualizarTratamentoProposto(id: number, pacienteData: any): Observable<any> {
+    // Garantir que o ID no corpo seja o mesmo que na URL
+    const dadosParaEnviar = {
+      ...pacienteData,
+      id: id  // Adiciona o ID no corpo da requisição
+    };
+  
+    return this.http.put(`${this.tratamentoUrl}/${id}`, dadosParaEnviar).pipe(
+      tap(response => console.log('Resposta do servidor:', response)),
+      catchError(this.handleError)
+    );
+  }
   salvarFichaAnamnese(fichaAnamneseData: any): Observable<any> {
     return this.http
       .post(this.fichaAnamneseUrl, fichaAnamneseData)
@@ -58,7 +109,24 @@ export class PacienteService {
   getPacientePorId(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
   }
-    
+  
+  getFichaAnamnesePorId(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:5147/api/FichaAnamnese/${id}`);
+  }
+  
+  getExamesPorId(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:5147/api/Exames/${id}`);
+  }
+  
+  getDiagnosticoPorId(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:5147/api/DiagnosticoPrognostico/${id}`);
+  }
+  
+  getTratamentoPropostoPorId(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:5147/api/TratamentoProposto/${id}`);
+  }
+  
+  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

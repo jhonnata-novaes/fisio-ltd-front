@@ -50,10 +50,14 @@ export class NovopacienteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.pacienteId = +params['id'];
       if (this.pacienteId) {
         this.carregarPaciente(this.pacienteId);
+        this.carregarFichaAnamnese(this.pacienteId);
+        this.carregarExames(this.pacienteId);
+        this.carregarDiagnostico(this.pacienteId);
+        this.carregarTratamentoProposto(this.pacienteId);
       }
     });
   }
@@ -62,6 +66,12 @@ export class NovopacienteComponent implements OnInit {
     if (this.form.valid) {
       const formValues = this.form.value;
       this.pacienteId ? this.atualizarPaciente(formValues) : this.salvarPaciente(formValues);
+      this.atualizarFichaAnamnese(formValues);
+      this.atualizarExames(formValues);
+      this.atualizarDiagnostico(formValues);
+      this.atualizarTratamentoProposto(formValues);
+      this.salvarExames(formValues); // Adiciona aqui
+      // Tem q botar os de salvar aqui tb, Leozin
     } else {
       console.error('Formulário inválido');
     }
@@ -83,83 +93,30 @@ export class NovopacienteComponent implements OnInit {
   }
 
   private atualizarPaciente(formValues: any) {
-    // Verifica se pacienteId é null e trata o erro
     if (this.pacienteId === null) {
-        console.error('ID do paciente não encontrado');
-        return; // ou redirecione, conforme necessário
+      console.error('ID do paciente não encontrado');
+      return;
     }
 
-    // Obtém os dados do paciente pelo ID
     this.pacienteService.getPacientePorId(this.pacienteId).subscribe({
-        next: (paciente: any) => {
-            if (paciente) {
-                // Cria um objeto para atualizar apenas os campos que foram preenchidos
-                const pacienteAtualizado = {
-                    ...paciente, // Mantém os dados existentes
-                    ...this.gerarPacienteData(formValues) // Sobrescreve apenas os dados do formulário preenchidos
-                };
-
-                // Chama o serviço para atualizar o paciente
-                this.pacienteService.atualizarPaciente(this.pacienteId as number, pacienteAtualizado).subscribe({
-                    next: (response: any) => {
-                        console.log('Paciente atualizado com sucesso!', response);
-                        this.router.navigate(['pacientes']);
-                    },
-                    error: (error: any) => {
-                        console.error('Erro ao atualizar paciente:', error);
-                    },
-                });
-            } else {
-                console.warn('Paciente não encontrado');
-            }
-        },
-        error: (error: any) => {
-            console.error('Erro ao carregar dados do paciente:', error);
-        },
-    });
-}
-
-
-private gerarPacienteData(formValues: any) {
-  return {
-      nome: formValues.nome || undefined,
-      dataAvaliacao: formValues.dataAvaliacao ? this.formatarData(formValues.dataAvaliacao) : undefined,
-      estadoCivil: formValues.estadoCivil || undefined,
-      nacionalidade: formValues.nacionalidade || undefined,
-      naturalidade: formValues.naturalidade || undefined,
-      dataNascimento: this.formatarData(formValues.dataNascimento), 
-      peso: formValues.peso || undefined,
-      altura: formValues.altura || undefined,
-      endereco: formValues.endereco || undefined,
-      numeroIdentidade: formValues.numeroIdentidade || undefined,
-      telefone: formValues.telefone || undefined,
-      email: formValues.email || undefined,
-      profissao: formValues.profissao || undefined,
-      diagnosticoClinico: formValues.diagnosticoClinico || undefined,
-  };
-}
-
-
-
-  private formatarData(data: Date | null): string | null {
-    if (data) {
-      const dia = String(data.getDate()).padStart(2, '0');
-      const mes = String(data.getMonth() + 1).padStart(2, '0');
-      const ano = data.getFullYear();
-      return `${ano}-${mes}-${dia}`;
-    }
-    return null;
-  }
-
-  private carregarPaciente(id: number) {
-    this.pacienteService.getPacientePorId(id).subscribe({
       next: (paciente: any) => {
-        console.log('Dados do paciente:', paciente);
         if (paciente) {
-          this.form.patchValue(paciente);
-          console.log('Formulário preenchido com sucesso:', this.form.value);
+          const pacienteAtualizado = {
+            ...paciente,
+            ...this.gerarPacienteData(formValues),
+          };
+
+          this.pacienteService.atualizarPaciente(this.pacienteId as number, pacienteAtualizado).subscribe({
+            next: (response: any) => {
+              console.log('Paciente atualizado com sucesso!', response);
+              this.router.navigate(['pacientes']);
+            },
+            error: (error: any) => {
+              console.error('Erro ao atualizar paciente:', error);
+            },
+          });
         } else {
-          console.warn('Paciente não encontrado ou dados inválidos');
+          console.warn('Paciente não encontrado');
         }
       },
       error: (error: any) => {
@@ -168,9 +125,303 @@ private gerarPacienteData(formValues: any) {
     });
   }
 
-  private salvarFichaAnamnese(pacienteId: number, formValues: any) {
-    const fichaAnamneseData = {
-      dadosBasicosId: pacienteId,
+  private atualizarFichaAnamnese(formValues: any) {
+    if (this.pacienteId === null) {
+      console.error('ID do paciente não encontrado');
+      return;
+    }
+
+    this.pacienteService.getFichaAnamnesePorId(this.pacienteId).subscribe({
+      next: (paciente: any) => {
+        if (paciente) {
+          const pacienteAtualizado = {
+            ...paciente,
+            ...this.gerarPacienteData(formValues),
+          };
+
+          this.pacienteService.atualizarFichaAnamnese(this.pacienteId as number, pacienteAtualizado).subscribe({
+            next: (response: any) => {
+              console.log('Paciente atualizado com sucesso!', response);
+              this.router.navigate(['pacientes']);
+            },
+            error: (error: any) => {
+              console.error('Erro ao atualizar paciente:', error);
+            },
+          });
+        } else {
+          console.warn('Paciente não encontrado');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar dados do paciente:', error);
+      },
+    });
+  }
+
+  private atualizarExames(formValues: any) {
+    if (this.pacienteId === null) {
+      console.error('ID do paciente não encontrado');
+      return;
+    }
+
+    this.pacienteService.getExamesPorId(this.pacienteId).subscribe({
+      next: (paciente: any) => {
+        if (paciente) {
+          const pacienteAtualizado = {
+            ...paciente,
+            ...this.gerarPacienteData(formValues),
+          };
+
+          this.pacienteService.atualizarExames(this.pacienteId as number, pacienteAtualizado).subscribe({
+            next: (response: any) => {
+              console.log('Paciente atualizado com sucesso!', response);
+              this.router.navigate(['pacientes']);
+            },
+            error: (error: any) => {
+              console.error('Erro ao atualizar paciente:', error);
+            },
+          });
+        } else {
+          console.warn('Paciente não encontrado');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar dados do paciente:', error);
+      },
+    });
+  }
+
+  private atualizarDiagnostico(formValues: any) {
+    if (this.pacienteId === null) {
+      console.error('ID do paciente não encontrado');
+      return;
+    }
+
+    this.pacienteService.getDiagnosticoPorId(this.pacienteId).subscribe({
+      next: (paciente: any) => {
+        if (paciente) {
+          const pacienteAtualizado = {
+            ...paciente,
+            ...this.gerarPacienteData(formValues),
+          };
+
+          this.pacienteService.atualizarDiagnostico(this.pacienteId as number, pacienteAtualizado).subscribe({
+            next: (response: any) => {
+              console.log('Paciente atualizado com sucesso!', response);
+              this.router.navigate(['pacientes']);
+            },
+            error: (error: any) => {
+              console.error('Erro ao atualizar paciente:', error);
+            },
+          });
+        } else {
+          console.warn('Paciente não encontrado');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar dados do paciente:', error);
+      },
+    });
+  }
+
+  private atualizarTratamentoProposto(formValues: any) {
+    if (this.pacienteId === null) {
+      console.error('ID do paciente não encontrado');
+      return;
+    }
+
+    this.pacienteService.getTratamentoPropostoPorId(this.pacienteId).subscribe({
+      next: (paciente: any) => {
+        if (paciente) {
+          const pacienteAtualizado = {
+            ...paciente,
+            ...this.gerarPacienteData(formValues),
+          };
+
+          this.pacienteService.atualizarTratamentoProposto(this.pacienteId as number, pacienteAtualizado).subscribe({
+            next: (response: any) => {
+              console.log('Paciente atualizado com sucesso!', response);
+              this.router.navigate(['pacientes']);
+            },
+            error: (error: any) => {
+              console.error('Erro ao atualizar paciente:', error);
+            },
+          });
+        } else {
+          console.warn('Paciente não encontrado');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar dados do paciente:', error);
+      },
+    });
+  }
+
+  private gerarPacienteData(formValues: any) {
+    return {
+      nome: formValues.nome || undefined,
+      dataAvaliacao: formValues.dataAvaliacao ? this.formatarData(formValues.dataAvaliacao) : undefined,
+      estadoCivil: formValues.estadoCivil || undefined,
+      nacionalidade: formValues.nacionalidade || undefined,
+      naturalidade: formValues.naturalidade || undefined,
+      dataNascimento: this.formatarData(formValues.dataNascimento),
+      peso: formValues.peso || undefined,
+      altura: formValues.altura || undefined,
+      endereco: formValues.endereco || undefined,
+      numeroIdentidade: formValues.numeroIdentidade || undefined,
+      telefone: formValues.telefone || undefined,
+      email: formValues.email || undefined,
+      profissao: formValues.profissao || undefined,
+      diagnosticoClinico: formValues.diagnosticoClinico || undefined,
+      queixa: formValues.queixa || undefined,
+      historiaDoencaAtual: formValues.historiadoenca || undefined,
+      historiaPatologica: formValues.historiapatologica || undefined,
+      habitosVida: formValues.habitos || undefined,
+      historiaFamiliar: formValues.historiafamiliar || undefined,
+      examesComplementares: formValues.examesComplementares || undefined,
+      exameFisico: formValues.examefisico || undefined,
+      diagnosticoFisio: formValues.diagnosticoFisio || undefined,
+      prognosticoFisio: formValues.proagnosticoFisio || undefined,
+      quantidade: formValues.quantidade || undefined,
+      plano: formValues.plano || undefined,
+    };
+}
+
+
+  private formatarData(data: string | null): string | null {
+    if (data) {
+      // Cria um objeto Date a partir da string de data
+      const date = new Date(data);
+  
+      if (!isNaN(date.getTime())) { // Verifica se a data é válida
+        // Obtém o offset do fuso horário em minutos
+        const timezoneOffset = date.getTimezoneOffset() * 60000; // Converte para milissegundos
+  
+        // Ajusta a data subtraindo o offset do fuso horário
+        const adjustedDate = new Date(date.getTime() - timezoneOffset);
+  
+        // Retorna a data no formato YYYY-MM-DD
+        return adjustedDate.toISOString().split('T')[0];
+      }
+    }
+    return null;
+  }
+  
+  
+  private carregarPaciente(id: number) {
+    this.pacienteService.getPacientePorId(id).subscribe({
+      next: (paciente: any) => {
+        if (paciente) {
+          // Atribui os valores ao FormGroup
+          this.form.patchValue(paciente);
+  
+          // Formatar e atribuir a data de nascimento
+          const dataNascimentoFormatada = this.formatarData(paciente.dataNascimento);
+          this.form.patchValue({
+            dataNascimento: dataNascimentoFormatada,
+          });
+  
+          // Formatar e atribuir a data de avaliação
+          const dataAvaliacaoFormatada = this.formatarData(paciente.dataAvaliacao);
+          this.form.patchValue({
+            dataAvaliacao: dataAvaliacaoFormatada,
+          });
+        } else {
+          console.warn('Paciente não encontrado');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar dados do paciente:', error);
+      },
+    });
+  }
+  
+
+  private carregarFichaAnamnese(id: number) {
+    this.pacienteService.getFichaAnamnesePorId(id).subscribe({
+      next: (ficha: any[]) => { // A resposta é um array, então mantenha o tipo como any[]
+        console.log('Dados retornados:', ficha); // Log para visualizar a estrutura
+  
+        if (ficha && ficha.length > 0) { // Verifica se existe e se não está vazio
+          this.form.patchValue({
+            queixa: ficha[0].queixa,
+            historiadoenca: ficha[0].historiaDoencaAtual, // Corrigido para corresponder ao nome correto
+            historiapatologica: ficha[0].historiaPatologica, // Corrigido para corresponder ao nome correto
+            habitos: ficha[0].habitosVida, // Corrigido para corresponder ao nome correto
+            historiafamiliar: ficha[0].historiaFamiliar // Corrigido para corresponder ao nome correto
+          }); 
+        } else {
+          console.warn('Ficha de Anamnese não encontrada');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar Ficha de Anamnese:', error);
+      },
+    });
+  }
+  
+
+  private carregarExames(id: number) {
+    this.pacienteService.getExamesPorId(id).subscribe({
+      next: (exames: any) => {
+        console.log('Dados retornados:', exames);  // Verifique os dados retornados aqui
+        if (exames && exames.length > 0) {
+          this.form.patchValue({
+            examesComplementares: exames[0].examesComplementares,
+            examefisico: exames[0].exameFisico
+          });
+        } else {
+          console.warn('Exames não encontrados');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar Exames:', error);
+      },
+    });
+  }
+
+  private carregarDiagnostico(id: number) {
+    this.pacienteService.getDiagnosticoPorId(id).subscribe({
+      next: (diagnostico: any[]) => {
+        console.log('Dados retornados:', diagnostico); // Verifique os dados retornados aqui
+        if (diagnostico && diagnostico.length > 0) {
+          this.form.patchValue({
+            diagnosticoFisio: diagnostico[0].diagnosticoFisio,
+            proagnosticoFisio: diagnostico[0].prognosticoFisio, // Certifique-se de que o nome da propriedade está correto
+            quantidade: diagnostico[0].quantidade,
+          });
+        } else {
+          console.warn('Diagnóstico não encontrado');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar Diagnóstico:', error);
+      },
+    });
+  }
+  
+
+  private carregarTratamentoProposto(id: number) {
+    this.pacienteService.getTratamentoPropostoPorId(id).subscribe({
+      next: (tratamento: any[]) => { // Mudei para tratamento: any[]
+        if (tratamento && tratamento.length > 0) { // Verifica se existe e se não está vazio
+          this.form.patchValue({
+            plano: tratamento[0].plano, // Acessa o primeiro item do array
+          });
+        } else {
+          console.warn('Tratamento Proposto não encontrado');
+        }
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar Tratamento Proposto:', error);
+      },
+    });
+  }
+  
+
+  private salvarFichaAnamnese(id: number, formValues: any) {
+    const fichaData = {
+      pacienteId: id,
       queixa: formValues.queixa,
       historiaDoencaAtual: formValues.historiadoenca,
       historiaPatologica: formValues.historiapatologica,
@@ -178,34 +429,41 @@ private gerarPacienteData(formValues: any) {
       historiaFamiliar: formValues.historiafamiliar,
     };
 
-    this.pacienteService.salvarFichaAnamnese(fichaAnamneseData).subscribe({
-      next: (examesResponse: any) => {
-        console.log('Ficha de anamnese salva com sucesso!', examesResponse);
-        this.salvarExames(pacienteId, formValues);
+    this.pacienteService.salvarFichaAnamnese(fichaData).subscribe({
+      next: (response: any) => {
+        console.log('Ficha de Anamnese salva com sucesso!', response);
       },
-      error: (examesError: any) => {
-        console.error('Erro ao salvar ficha de anamnese:', examesError);
+      error: (error: any) => {
+        console.error('Erro ao salvar Ficha de Anamnese:', error);
       },
     });
   }
-
-  private salvarExames(pacienteId: number, formValues: any) {
+  
+  private salvarExames(formValues: any) {
+    if (this.pacienteId === null) {
+      console.error('ID do paciente não encontrado');
+      return;
+    }
+  
+    // Crie um objeto com os dados do exame que você deseja salvar
     const examesData = {
-      dadosBasicosId: pacienteId,
-      examesComplementares: formValues.examesComplementares,
-      examefisico: formValues.examefisico,
+      pacienteId: this.pacienteId,
+      // Adicione os campos necessários do formValues para o exame
+      examesComplementares: formValues.examesComplementares || undefined,
+      exameFisico: formValues.examefisico || undefined,
+      // Adicione outros campos que forem necessários
     };
-
+  
     this.pacienteService.salvarExames(examesData).subscribe({
-      next: (examesResponse: any) => {
-        console.log('Exames salvos com sucesso!', examesResponse);
-        this.salvarDiagnostico(pacienteId, formValues);
+      next: (response: any) => {
+        console.log('Exames salvos com sucesso!', response);
       },
-      error: (examesError: any) => {
-        console.error('Erro ao salvar exames:', examesError);
+      error: (error: any) => {
+        console.error('Erro ao salvar exames:', error);
       },
     });
   }
+  
 
   private salvarDiagnostico(pacienteId: number, formValues: any) {
     const diagnosticoData = {
