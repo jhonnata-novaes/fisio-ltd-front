@@ -49,33 +49,23 @@ export class NovopacienteComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.pacienteId = +params['id'];
-      if (this.pacienteId) {
-        this.carregarPaciente(this.pacienteId);
-        this.carregarFichaAnamnese(this.pacienteId);
-        this.carregarExames(this.pacienteId);
-        this.carregarDiagnostico(this.pacienteId);
-        this.carregarTratamentoProposto(this.pacienteId);
-      }
-    });
-  }
-
   salvar() {
     if (this.form.valid) {
       const formValues = this.form.value;
-      this.pacienteId ? this.atualizarPaciente(formValues) : this.salvarPaciente(formValues);
-      this.atualizarFichaAnamnese(formValues);
-      this.atualizarExames(formValues);
-      this.atualizarDiagnostico(formValues);
-      this.atualizarTratamentoProposto(formValues);
-      this.salvarExames(formValues); // Adiciona aqui
-      // Tem q botar os de salvar aqui tb, Leozin
+      if (this.pacienteId) {
+        this.atualizarPaciente(formValues);
+        this.atualizarFichaAnamnese(formValues);
+        this.atualizarExames(formValues);
+        this.atualizarDiagnostico(formValues);
+        this.atualizarTratamentoProposto(formValues);
+      } else {
+        this.salvarPaciente(formValues);
+      }
     } else {
       console.error('Formulário inválido');
     }
   }
+  
 
   private salvarPaciente(formValues: any) {
     const pacienteData = this.gerarPacienteData(formValues);
@@ -92,6 +82,80 @@ export class NovopacienteComponent implements OnInit {
     });
   }
 
+  private salvarFichaAnamnese(pacienteId: number, formValues: any) {
+    const fichaAnamneseData = {
+      dadosBasicosId: pacienteId,
+      queixa: formValues.queixa,
+      historiaDoencaAtual: formValues.historiadoenca,
+      historiaPatologica: formValues.historiapatologica,
+      habitosVida: formValues.habitos,
+      historiaFamiliar: formValues.historiafamiliar,
+    };
+
+    this.pacienteService.salvarFichaAnamnese(fichaAnamneseData).subscribe({
+      next: (examesResponse: any) => {
+        console.log('Ficha de anamnese salva com sucesso!', examesResponse);
+
+        this.salvarExames(pacienteId, formValues);
+      },
+      error: (examesError: any) => {
+        console.error('Erro ao salvar ficha de anamnese:', examesError);
+      },
+    });
+  }
+
+  private salvarExames(pacienteId: number, formValues: any) {
+    const examesData = {
+      dadosBasicosId: pacienteId,
+      examesComplementares: formValues.examesComplementares,
+      examefisico: formValues.examefisico,
+    };
+
+    this.pacienteService.salvarExames(examesData).subscribe({
+      next: (examesResponse: any) => {
+        console.log('Exames salvos com sucesso!', examesResponse);
+        this.salvarDiagnostico(pacienteId, formValues);
+      },
+      error: (examesError: any) => {
+        console.error('Erro ao salvar exames:', examesError);
+      },
+    });
+  }
+
+  private salvarDiagnostico(pacienteId: number, formValues: any) {
+    const diagnosticoData = {
+      dadosBasicosId: pacienteId,
+      diagnosticoFisio: formValues.diagnosticoFisio,
+      prognosticofisio: formValues.proagnosticoFisio,
+      quantidade: formValues.quantidade,
+    };
+
+    this.pacienteService.salvarDiagnostico(diagnosticoData).subscribe({
+      next: (diagnosticoResponse: any) => {
+        console.log('Diagnostico salvo com sucesso!', diagnosticoResponse);
+        this.salvarTratamentoProposto(pacienteId, formValues);
+      },
+      error: (diagnosticoError: any) => {
+        console.error('Erro ao salvar diagnostico:', diagnosticoError);
+      },
+    });
+  }
+
+  private salvarTratamentoProposto(pacienteId: number, formValues: any) {
+    const tratamentoData = {
+      dadosBasicosId: pacienteId,
+      plano: formValues.plano,
+    };
+
+    this.pacienteService.salvarTratamentoProposto(tratamentoData).subscribe({
+      next: (tratamentoResponse: any) => {
+        console.log('Tratamento salvo com sucesso!', tratamentoResponse);
+      },
+      error: (tratamentoError: any) => {
+        console.error('Erro ao salvar tratamento:', tratamentoError);
+      },
+    });
+  }
   private atualizarPaciente(formValues: any) {
     if (this.pacienteId === null) {
       console.error('ID do paciente não encontrado');
@@ -285,7 +349,31 @@ export class NovopacienteComponent implements OnInit {
       quantidade: formValues.quantidade || undefined,
       plano: formValues.plano || undefined,
     };
+  }
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+        const idParam = params['id'];
+        this.pacienteId = +idParam; // Converte para número
+
+        // Debugging: Verifique o ID recebido
+        console.log('ID do paciente recebido:', idParam);
+        console.log('ID do paciente após conversão:', this.pacienteId);
+
+        if (!isNaN(this.pacienteId) && this.pacienteId > 0) {
+            // Se é um ID válido, carregue os dados do paciente
+            this.carregarPaciente(this.pacienteId);
+            this.carregarFichaAnamnese(this.pacienteId);
+            this.carregarExames(this.pacienteId);
+            this.carregarDiagnostico(this.pacienteId);
+            this.carregarTratamentoProposto(this.pacienteId);
+        } else {
+            // Caso contrário, estamos criando um novo paciente
+            console.log('Criando um novo paciente');
+            // Aqui você pode inicializar os dados do formulário para um novo paciente
+        }
+    });
 }
+
 
 
   private formatarData(data: string | null): string | null {
@@ -414,88 +502,6 @@ export class NovopacienteComponent implements OnInit {
       },
       error: (error: any) => {
         console.error('Erro ao carregar Tratamento Proposto:', error);
-      },
-    });
-  }
-  
-
-  private salvarFichaAnamnese(id: number, formValues: any) {
-    const fichaData = {
-      pacienteId: id,
-      queixa: formValues.queixa,
-      historiaDoencaAtual: formValues.historiadoenca,
-      historiaPatologica: formValues.historiapatologica,
-      habitosVida: formValues.habitos,
-      historiaFamiliar: formValues.historiafamiliar,
-    };
-
-    this.pacienteService.salvarFichaAnamnese(fichaData).subscribe({
-      next: (response: any) => {
-        console.log('Ficha de Anamnese salva com sucesso!', response);
-      },
-      error: (error: any) => {
-        console.error('Erro ao salvar Ficha de Anamnese:', error);
-      },
-    });
-  }
-  
-  private salvarExames(formValues: any) {
-    if (this.pacienteId === null) {
-      console.error('ID do paciente não encontrado');
-      return;
-    }
-  
-    // Crie um objeto com os dados do exame que você deseja salvar
-    const examesData = {
-      pacienteId: this.pacienteId,
-      // Adicione os campos necessários do formValues para o exame
-      examesComplementares: formValues.examesComplementares || undefined,
-      exameFisico: formValues.examefisico || undefined,
-      // Adicione outros campos que forem necessários
-    };
-  
-    this.pacienteService.salvarExames(examesData).subscribe({
-      next: (response: any) => {
-        console.log('Exames salvos com sucesso!', response);
-      },
-      error: (error: any) => {
-        console.error('Erro ao salvar exames:', error);
-      },
-    });
-  }
-  
-
-  private salvarDiagnostico(pacienteId: number, formValues: any) {
-    const diagnosticoData = {
-      dadosBasicosId: pacienteId,
-      diagnosticoFisio: formValues.diagnosticoFisio,
-      prognosticofisio: formValues.proagnosticoFisio,
-      quantidade: formValues.quantidade,
-    };
-
-    this.pacienteService.salvarDiagnostico(diagnosticoData).subscribe({
-      next: (diagnosticoResponse: any) => {
-        console.log('Diagnostico salvo com sucesso!', diagnosticoResponse);
-        this.salvarTratamentoProposto(pacienteId, formValues);
-      },
-      error: (diagnosticoError: any) => {
-        console.error('Erro ao salvar diagnostico:', diagnosticoError);
-      },
-    });
-  }
-
-  private salvarTratamentoProposto(pacienteId: number, formValues: any) {
-    const tratamentoData = {
-      dadosBasicosId: pacienteId,
-      plano: formValues.plano,
-    };
-
-    this.pacienteService.salvarTratamentoProposto(tratamentoData).subscribe({
-      next: (tratamentoResponse: any) => {
-        console.log('Tratamento salvo com sucesso!', tratamentoResponse);
-      },
-      error: (tratamentoError: any) => {
-        console.error('Erro ao salvar tratamento:', tratamentoError);
       },
     });
   }
