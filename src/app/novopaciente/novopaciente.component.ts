@@ -393,6 +393,7 @@ export class NovopacienteComponent implements OnInit {
       }
     }
     console.log("GAGAGAGA");
+    
     return null;
     
 
