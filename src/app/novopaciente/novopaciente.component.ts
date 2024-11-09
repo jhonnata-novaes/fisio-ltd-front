@@ -392,7 +392,11 @@ export class NovopacienteComponent implements OnInit {
         return adjustedDate.toISOString().split('T')[0];
       }
     }
+    console.log("GAGAGAGA");
     return null;
+    
+
+
   }
   
   
