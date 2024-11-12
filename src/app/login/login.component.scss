@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 .roboto-bold {
   font-family: "Roboto", sans-serif;
@@ -7,55 +7,54 @@
   font-style: normal;
 }
 
-.inter{
+.inter {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
 }
 
-html, body {
-  margin: 0; 
-  padding: 0; 
-  height: 100%; 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 :host {
-    display: flex;
-    background-color: #08446C;
-    height: 100vh; 
-    
+  display: flex;
+  background-color: #08446c;
+  height: 100vh;
 }
 
-.logologin{
+.logologin {
   justify-content: center;
   display: flex;
   margin-left: 4.5rem;
 }
-  
+
 .login-container {
-  background-color: #fff; 
-  color: #333; 
+  background-color: #fff;
+  color: #333;
   width: 300px;
   margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
   text-align: center;
   padding: 12px;
-  color: #08446C;
+  color: #08446c;
   font-family: "Roboto", "sans-serif";
 }
 
 form {
-  margin: 0; 
-  padding: 0; 
+  margin: 0;
+  padding: 0;
 }
-
 
 form div {
   margin-bottom: 15px;
@@ -67,19 +66,19 @@ label {
 }
 
 input {
-  width: calc(100% - 0px); 
+  width: calc(100% - 0px);
   height: 50px;
-  border-color: #08446C;
+  border-color: #08446c;
   padding: 8px;
   border: 2px solid #ccc;
   border-radius: 4px;
-  margin-left: 0; 
+  margin-left: 0;
 }
 
 button {
   width: 100%;
   padding: 15px;
-  background-color: #08446C;
+  background-color: #08446c;
   color: white;
   border: none;
   border-radius: 4px;
@@ -87,5 +86,5 @@ button {
 }
 
 button:hover {
-  background-color: #063d55; 
+  background-color: #063d55;
 }

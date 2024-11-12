@@ -62,13 +62,15 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
 
-    return this.http.put(`${this.fichaAnamneseUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
-      catchError(this.handleError)
-    );
+    return this.http
+      .put(`${this.fichaAnamneseUrl}/${id}`, dadosParaEnviar)
+      .pipe(
+        tap((response) => console.log('Resposta do servidor:', response)),
+        catchError(this.handleError)
+      );
   }
 
   atualizarExames(id: number, pacienteData: any): Observable<any> {
@@ -78,15 +80,15 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
-  
+
     return this.http.put(`${this.examesUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
+      tap((response) => console.log('Resposta do servidor:', response)),
       catchError(this.handleError)
     );
   }
-  
+
   atualizarDiagnostico(id: number, pacienteData: any): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para atualizarDiagnostico:', id);
@@ -94,15 +96,15 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
-  
+
     return this.http.put(`${this.diagnosticoUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
+      tap((response) => console.log('Resposta do servidor:', response)),
       catchError(this.handleError)
     );
   }
-  
+
   atualizarTratamentoProposto(id: number, pacienteData: any): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para atualizarTratamentoProposto:', id);
@@ -110,11 +112,11 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
-  
+
     return this.http.put(`${this.tratamentoUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
+      tap((response) => console.log('Resposta do servidor:', response)),
       catchError(this.handleError)
     );
   }
@@ -122,61 +124,78 @@ export class PacienteService {
   buscarPacientes(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
-  
+
   getPacientePorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para getPacientePorId:', id);
       return throwError('ID inválido para obter paciente.');
     }
-    console.log('Buscando paciente com ID:', id);
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.apiUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getFichaAnamnesePorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
-      console.log('ID do paciente:', id);
       console.error('ID inválido para getFichaAnamnesePorId:', id);
       return throwError('ID inválido para obter ficha anamnese.');
     }
-    console.log('Buscando ficha anamnese com ID:', id);
-    return this.http.get<any>(`${this.fichaAnamneseUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.fichaAnamneseUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getExamesPorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para getExamesPorId:', id);
       return throwError('ID inválido para obter exames.');
     }
-    console.log('Buscando exames com ID:', id);
-    return this.http.get<any>(`${this.examesUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.examesUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getDiagnosticoPorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para getDiagnosticoPorId:', id);
       return throwError('ID inválido para obter diagnóstico.');
     }
-    console.log('Buscando diagnóstico com ID:', id);
-    return this.http.get<any>(`${this.diagnosticoUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.diagnosticoUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getTratamentoPropostoPorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para getTratamentoPropostoPorId:', id);
       return throwError('ID inválido para obter tratamento proposto.');
     }
-    console.log('Buscando tratamento proposto com ID:', id);
-    return this.http.get<any>(`${this.tratamentoUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.tratamentoUrl}/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  finalizarTratamento(pacienteId: number): Observable<any> {
+    const url = `http://localhost:5147/api/Paciente/${pacienteId}/finalizarTratamento`; // Alterei para usar pacienteId
+    return this.http.put(url, {}).pipe(
+      catchError(this.handleError),
+      tap((response) => {
+        console.log('Tratamento finalizado com sucesso:', response);
+        // Aqui você pode fazer alguma lógica adicional, como atualizar o status do paciente ou emitir eventos
+      })
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Ocorreu um erro inesperado.';
     if (error.error instanceof ErrorEvent) {
-      console.error('Um erro ocorreu:', error.error.message);
+      // Erro do lado do cliente
+      errorMessage = `Erro: ${error.error.message}`;
     } else {
-      console.error(
-        `Erro do servidor: ${error.status}, ` + `corpo do erro: ${error.error}`
-      );
+      // Erro do lado do servidor
+      errorMessage = `Código de erro: ${error.status}, Mensagem: ${error.message}`;
     }
-    return throwError('Algo ruim aconteceu; tente novamente mais tarde.');
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
 }
