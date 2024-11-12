@@ -57,6 +57,8 @@
       <tr>
         <th>ID</th>
         <th>Nome</th>
+        <th>Status</th>
+        <!-- Nova coluna de status -->
         <th>Ação</th>
       </tr>
     </thead>
@@ -64,13 +66,26 @@
       <tr *ngFor="let paciente of pacientes">
         <td class="id-cell">{{ paciente.id }}</td>
         <td>{{ paciente.nome }}</td>
-        <!-- Substitua 'nome' pelo campo correto do seu modelo -->
+
+        <!-- Coluna de Status -->
         <td>
-          <button class="view-button" (click)="visualizarPaciente(paciente.id)">Visualizar</button>
-        </td>        
+          <span *ngIf="paciente.status === 'EM_TRATAMENTO'">EM TRATAMENTO</span>
+          <span *ngIf="paciente.status === 'TRATAMENTO_FINALIZADO'"
+            >TRATAMENTO FINALIZADO</span
+          >
+          <span *ngIf="paciente.status === 'TRATAMENTO_CANCELADO'"
+            >TRATAMENTO CANCELADO</span
+          >
+        </td>
+
+        <td>
+          <button class="view-button" (click)="visualizarPaciente(paciente.id)">
+            Visualizar
+          </button>
+        </td>
       </tr>
       <tr *ngIf="pacientes.length === 0">
-        <td colspan="3" style="text-align: center">
+        <td colspan="4" style="text-align: center">
           Nenhum paciente cadastrado.
         </td>
       </tr>
