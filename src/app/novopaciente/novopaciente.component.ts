@@ -321,6 +321,38 @@ export class NovopacienteComponent implements OnInit {
     });
   }
 
+  finalizarTratamento(pacienteId: number | null) {
+    if (pacienteId === null) {
+      console.error('Paciente ID é nulo');
+      return;
+    }
+  
+    this.pacienteService.finalizarTratamento(pacienteId).subscribe(
+      (response: any) => {
+        this.router.navigate(['pacientes']);
+      },
+      (error: any) => {
+        console.error('Erro ao finalizar o tratamento:', error);
+      }
+    );
+  }
+
+  cancelarTratamento(pacienteId: number | null) {
+    if (pacienteId === null) {
+      console.error('ID do paciente não encontrado');
+      return;  // Não continuar se o ID não for válido
+    }
+  
+    this.pacienteService.cancelarTratamento(pacienteId).subscribe(
+      (response: any) => {
+        this.router.navigate(['pacientes']);
+      },
+      (error: any) => {
+        console.error('Erro ao cancelar o tratamento:', error);
+      }
+    );
+  }
+
   private gerarPacienteData(formValues: any) {
     return {
       nome: formValues.nome || undefined,
@@ -374,32 +406,13 @@ export class NovopacienteComponent implements OnInit {
     });
 }
 
-
-
   private formatarData(data: string | null): string | null {
     if (data) {
-      // Cria um objeto Date a partir da string de data
-      const date = new Date(data);
-  
-      if (!isNaN(date.getTime())) { // Verifica se a data é válida
-        // Obtém o offset do fuso horário em minutos
-        const timezoneOffset = date.getTimezoneOffset() * 60000; // Converte para milissegundos
-  
-        // Ajusta a data subtraindo o offset do fuso horário
-        const adjustedDate = new Date(date.getTime() - timezoneOffset);
-  
-        // Retorna a data no formato YYYY-MM-DD
-        return adjustedDate.toISOString().split('T')[0];
-      }
+      return data.split("T")[0];
     }
-    console.log("GAGAGAGA");
-    
     return null;
-    
-
-
-  }
   
+  }
   
   private carregarPaciente(id: number) {
     this.pacienteService.getPacientePorId(id).subscribe({

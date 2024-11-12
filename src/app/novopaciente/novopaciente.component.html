@@ -178,11 +178,11 @@
             <img src="/assets/save.png" alt="Salvar" class="icon">
             Salvar Dados
         </button>
-        <button class="button button-finish">
+        <button class= "button button-finish" (click)="finalizarTratamento(pacienteId)">
             <img src="/assets/finalizar.png" alt="Finalizar" class="icon">
             Finalizar Tratamento
           </button>
-        <button class="button button-cancel">
+        <button class="button button-cancel" (click)="cancelarTratamento(pacienteId)">
             <img src="/assets/cancela.png" alt="Cancelar" class="icon">
             Cancelar Tratamento
         </button>

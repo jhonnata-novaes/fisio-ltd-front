@@ -119,6 +119,30 @@ export class PacienteService {
     );
   }
 
+  finalizarTratamento(id: number): Observable<any> {
+    const dadosParaEnviar = {
+      id: id,  // Incluindo o ID no corpo da requisição
+      statusTratamento: 'Finalizado', // Somente o status será enviado para atualização
+    };
+  
+    return this.http.put(`${this.tratamentoUrl}/finalizar/${id}`, dadosParaEnviar).pipe(
+      tap(response => console.log('Tratamento finalizado com sucesso:', response)),
+      catchError(this.handleError)
+    );
+  }
+  
+  
+  cancelarTratamento(id: number): Observable<any> {
+    const dadosParaEnviar = {
+      id: id,  // Incluindo o ID no corpo da requisição
+      statusTratamento: 'Cancelado',
+    };
+    return this.http.put(`${this.tratamentoUrl}/cancelado/${id}`, dadosParaEnviar).pipe(
+      tap(response => console.log('Tratamento cancelado com sucesso:', response)),
+      catchError(this.handleError)
+    );
+  }
+  
   buscarPacientes(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
