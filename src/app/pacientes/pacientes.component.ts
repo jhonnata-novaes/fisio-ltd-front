@@ -10,32 +10,12 @@ import { PacienteService } from '../services/paciente.service'; // Ajuste o cami
 export class PacientesComponent implements OnInit {
   router = inject(Router);
   pacientes: any[] = []; // Propriedade para armazenar a lista de pacientes
-  tratamento: any; // Propriedade para armazenar o tratamento
   errorMessage: string | null = null; // Propriedade para armazenar mensagens de erro
 
   constructor(private pacienteService: PacienteService) {}
 
   ngOnInit(): void {
     this.obterPacientes(); // Chama o método ao inicializar o componente
-    const tratamentoId = 1; // Defina o ID do tratamento que deseja buscar
-
-    this.pacienteService.getTratamentoPropostoPorId(tratamentoId).subscribe(
-      (data) => {
-        console.log('Tratamento finalizado com sucesso:', data);
-        if (data && Array.isArray(data) && data.length > 0) {
-          // Aqui estamos atribuindo o primeiro item do array diretamente
-          this.tratamento = data[0];
-          console.log('Tratamento recebido:', this.tratamento);
-        } else {
-          this.tratamento = null;
-          console.log('Nenhum tratamento encontrado.');
-        }
-      },
-      (error) => {
-        this.errorMessage = 'Erro ao carregar o tratamento.';
-        console.error('Erro ao buscar o tratamento:', error);
-      }
-    );
   }
 
   cadastrar() {
@@ -51,7 +31,25 @@ export class PacientesComponent implements OnInit {
     this.pacienteService.buscarPacientes().subscribe({
       next: (data) => {
         this.pacientes = data; // Armazena os pacientes recebidos
-        this.errorMessage = null; // Reseta a mensagem de erro se a busca for bem-sucedida
+        this.errorMessage = null; // Reseta a mensagem de erro
+
+        // Agora, para cada paciente, buscamos o seu status de tratamento
+        this.pacientes.forEach((paciente) => {
+          this.pacienteService.getTratamentoPropostoPorId(paciente.id).subscribe(
+            (tratamentoData) => {
+              // Aqui, assumimos que a resposta tem um array e atribuímos o tratamento correto
+              if (tratamentoData && Array.isArray(tratamentoData) && tratamentoData.length > 0) {
+                paciente.statusTratamento = tratamentoData[0].statusTratamento;
+              } else {
+                paciente.statusTratamento = "Não informado"; // Caso não tenha tratamento
+              }
+            },
+            (error) => {
+              console.error('Erro ao buscar o tratamento para o paciente', paciente.id, error);
+              paciente.statusTratamento = "Erro ao carregar tratamento"; // Caso ocorra um erro
+            }
+          );
+        });
       },
       error: (error) => {
         console.error('Erro ao buscar pacientes', error);

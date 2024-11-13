@@ -65,7 +65,7 @@
       <tr *ngFor="let paciente of pacientes">
         <td class="id-cell">{{ paciente.id }}</td>
         <td>{{ paciente.nome }}</td>
-        <td>{{ tratamento?.statusTratamento || "Não informado" }}</td>
+        <td>{{ paciente.statusTratamento || "Não informado" }}</td>
         <td>
           <button class="view-button" (click)="visualizarPaciente(paciente.id)">
             Visualizar
