@@ -1,13 +1,29 @@
 <div class="login-container">
-    <img class="logologin" src="/assets/logofisio.png" alt="logo fisioterapia">  
-    <h1>BEM-VINDO!</h1>
-    <form #loginForm="ngForm">
-      <div>
-        <input placeholder="Email" type="email" id="email" name="email" ngModel required>
-      </div>
-      <div>
-        <input placeholder="Senha" type="password" id="password" name="password" ngModel required>
-      </div>
-      <button type="button" [disabled]="!loginForm.valid" (click)="logar()">Login</button>
-    </form>
+  <img class="logologin" src="/assets/logofisio.png" alt="logo fisioterapia" />
+  <h1>BEM-VINDO!</h1>
+  <form #loginForm="ngForm">
+    <div>
+      <input
+        placeholder="Email"
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+      />
+    </div>
+    <div>
+      <input
+        placeholder="Senha"
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+      />
+    </div>
+    <button type="button" [disabled]="!loginForm.valid" (click)="logar()">
+      Login
+    </button>
+  </form>
 </div>

@@ -5,17 +5,37 @@ import { PacienteService } from '../services/paciente.service'; // Ajuste o cami
 @Component({
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
-  styleUrls: ['./pacientes.component.scss'], // Corrigido de styleUrl para styleUrls
+  styleUrls: ['./pacientes.component.scss'],
 })
 export class PacientesComponent implements OnInit {
   router = inject(Router);
   pacientes: any[] = []; // Propriedade para armazenar a lista de pacientes
+  tratamento: any; // Propriedade para armazenar o tratamento
   errorMessage: string | null = null; // Propriedade para armazenar mensagens de erro
 
   constructor(private pacienteService: PacienteService) {}
 
   ngOnInit(): void {
     this.obterPacientes(); // Chama o método ao inicializar o componente
+    const tratamentoId = 1; // Defina o ID do tratamento que deseja buscar
+
+    this.pacienteService.getTratamentoPropostoPorId(tratamentoId).subscribe(
+      (data) => {
+        console.log('Tratamento finalizado com sucesso:', data);
+        if (data && Array.isArray(data) && data.length > 0) {
+          // Aqui estamos atribuindo o primeiro item do array diretamente
+          this.tratamento = data[0];
+          console.log('Tratamento recebido:', this.tratamento);
+        } else {
+          this.tratamento = null;
+          console.log('Nenhum tratamento encontrado.');
+        }
+      },
+      (error) => {
+        this.errorMessage = 'Erro ao carregar o tratamento.';
+        console.error('Erro ao buscar o tratamento:', error);
+      }
+    );
   }
 
   cadastrar() {

@@ -57,6 +57,7 @@
       <tr>
         <th>ID</th>
         <th>Nome</th>
+        <th>Status Tratamento</th>
         <th>Ação</th>
       </tr>
     </thead>
@@ -64,13 +65,15 @@
       <tr *ngFor="let paciente of pacientes">
         <td class="id-cell">{{ paciente.id }}</td>
         <td>{{ paciente.nome }}</td>
-        <!-- Substitua 'nome' pelo campo correto do seu modelo -->
+        <td>{{ tratamento?.statusTratamento || "Não informado" }}</td>
         <td>
-          <button class="view-button" (click)="visualizarPaciente(paciente.id)">Visualizar</button>
-        </td>        
+          <button class="view-button" (click)="visualizarPaciente(paciente.id)">
+            Visualizar
+          </button>
+        </td>
       </tr>
       <tr *ngIf="pacientes.length === 0">
-        <td colspan="3" style="text-align: center">
+        <td colspan="4" style="text-align: center">
           Nenhum paciente cadastrado.
         </td>
       </tr>

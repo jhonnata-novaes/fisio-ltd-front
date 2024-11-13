@@ -62,13 +62,15 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
 
-    return this.http.put(`${this.fichaAnamneseUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
-      catchError(this.handleError)
-    );
+    return this.http
+      .put(`${this.fichaAnamneseUrl}/${id}`, dadosParaEnviar)
+      .pipe(
+        tap((response) => console.log('Resposta do servidor:', response)),
+        catchError(this.handleError)
+      );
   }
 
   atualizarExames(id: number, pacienteData: any): Observable<any> {
@@ -78,15 +80,15 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
-  
+
     return this.http.put(`${this.examesUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
+      tap((response) => console.log('Resposta do servidor:', response)),
       catchError(this.handleError)
     );
   }
-  
+
   atualizarDiagnostico(id: number, pacienteData: any): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para atualizarDiagnostico:', id);
@@ -94,15 +96,15 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
-  
+
     return this.http.put(`${this.diagnosticoUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
+      tap((response) => console.log('Resposta do servidor:', response)),
       catchError(this.handleError)
     );
   }
-  
+
   atualizarTratamentoProposto(id: number, pacienteData: any): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para atualizarTratamentoProposto:', id);
@@ -110,52 +112,61 @@ export class PacienteService {
     }
     const dadosParaEnviar = {
       ...pacienteData,
-      id: id
+      id: id,
     };
-  
+
     return this.http.put(`${this.tratamentoUrl}/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Resposta do servidor:', response)),
+      tap((response) => console.log('Resposta do servidor:', response)),
       catchError(this.handleError)
     );
   }
 
   finalizarTratamento(id: number): Observable<any> {
     const dadosParaEnviar = {
-      id: id,  // Incluindo o ID no corpo da requisição
+      id: id, // Incluindo o ID no corpo da requisição
       statusTratamento: 'Finalizado', // Somente o status será enviado para atualização
     };
-  
-    return this.http.put(`${this.tratamentoUrl}/finalizar/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Tratamento finalizado com sucesso:', response)),
-      catchError(this.handleError)
-    );
+
+    return this.http
+      .put(`${this.tratamentoUrl}/finalizar/${id}`, dadosParaEnviar)
+      .pipe(
+        tap((response) =>
+          console.log('Tratamento finalizado com sucesso:', response)
+        ),
+        catchError(this.handleError)
+      );
   }
-  
-  
+
   cancelarTratamento(id: number): Observable<any> {
     const dadosParaEnviar = {
-      id: id,  // Incluindo o ID no corpo da requisição
+      id: id, // Incluindo o ID no corpo da requisição
       statusTratamento: 'Cancelado',
     };
-    return this.http.put(`${this.tratamentoUrl}/cancelado/${id}`, dadosParaEnviar).pipe(
-      tap(response => console.log('Tratamento cancelado com sucesso:', response)),
-      catchError(this.handleError)
-    );
+    return this.http
+      .put(`${this.tratamentoUrl}/cancelado/${id}`, dadosParaEnviar)
+      .pipe(
+        tap((response) =>
+          console.log('Tratamento cancelado com sucesso:', response)
+        ),
+        catchError(this.handleError)
+      );
   }
-  
+
   buscarPacientes(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
-  
+
   getPacientePorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para getPacientePorId:', id);
       return throwError('ID inválido para obter paciente.');
     }
     console.log('Buscando paciente com ID:', id);
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.apiUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getFichaAnamnesePorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.log('ID do paciente:', id);
@@ -163,34 +174,48 @@ export class PacienteService {
       return throwError('ID inválido para obter ficha anamnese.');
     }
     console.log('Buscando ficha anamnese com ID:', id);
-    return this.http.get<any>(`${this.fichaAnamneseUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.fichaAnamneseUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getExamesPorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para getExamesPorId:', id);
       return throwError('ID inválido para obter exames.');
     }
     console.log('Buscando exames com ID:', id);
-    return this.http.get<any>(`${this.examesUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.examesUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getDiagnosticoPorId(id: number): Observable<any> {
     if (!id || isNaN(id)) {
       console.error('ID inválido para getDiagnosticoPorId:', id);
       return throwError('ID inválido para obter diagnóstico.');
     }
     console.log('Buscando diagnóstico com ID:', id);
-    return this.http.get<any>(`${this.diagnosticoUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http
+      .get<any>(`${this.diagnosticoUrl}/${id}`)
+      .pipe(catchError(this.handleError));
   }
-  
+
   getTratamentoPropostoPorId(id: number): Observable<any> {
+    console.log('ID recebido:', id);
     if (!id || isNaN(id)) {
       console.error('ID inválido para getTratamentoPropostoPorId:', id);
-      return throwError('ID inválido para obter tratamento proposto.');
+      return throwError(
+        () => new Error('ID inválido para obter tratamento proposto.')
+      );
     }
     console.log('Buscando tratamento proposto com ID:', id);
-    return this.http.get<any>(`${this.tratamentoUrl}/${id}`).pipe(catchError(this.handleError));
+    return this.http.get<any>(`${this.tratamentoUrl}/${id}`).pipe(
+      tap((data) => {
+        console.log('Resposta da API:', data); // Verifique a resposta da API
+      }),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

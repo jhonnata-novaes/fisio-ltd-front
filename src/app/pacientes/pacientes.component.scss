@@ -1,170 +1,198 @@
 .navbar {
-    background-color: #08446C;
-    height: 83px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  background-color: #08446c;
+  height: 83px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .navbar-brand {
-    color: white;
-    padding-left: 38px;
+  color: white;
+  padding-left: 38px;
 }
 
 .separator {
-    height: 50px; 
-    width: 2px; 
-    background-color: white;
-    margin-left: 90px; 
-    margin-right: -35px;
+  height: 50px;
+  width: 2px;
+  background-color: white;
+  margin-left: 90px;
+  margin-right: -35px;
 }
 
 #dashboard {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .ml-auto {
-    margin-left: 54rem;
+  margin-left: 54rem;
 }
 
 .arrow-down {
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 5px;
-    transform: rotate(45deg);
-    margin-left: 15px;
-    position: relative;
-    top: -2px;  
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  transform: rotate(45deg);
+  margin-left: 15px;
+  position: relative;
+  top: -2px;
 }
 
-
 .sidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    top: 83px; 
-    left: 0;
-    background-color: #E8E4E4;
-    padding-top: 20px;
-    transition: 0.3s;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 83px;
+  left: 0;
+  background-color: #e8e4e4;
+  padding-top: 20px;
+  transition: 0.3s;
 }
 
 .sidebar ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .sidebar ul li {
-    padding: 0px;
+  padding: 0px;
 }
 
 .sidebar ul li a {
-    display: block; 
-    padding: 15px; 
-    color: black;
-    text-decoration: none;
-    width: 100%;
-    transition: background-color 0.3s, padding 0.3s; 
+  display: block;
+  padding: 15px;
+  color: black;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color 0.3s, padding 0.3s;
 }
 
 .sidebar ul li a:hover {
-    background-color: #0A74B7;
-    color: white;
-    padding: 20px; 
+  background-color: #0a74b7;
+  color: white;
+  padding: 20px;
 }
+
 .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
 .main-content {
-    margin-left: 250px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    height: calc(100vh - 83px); 
-    overflow-y: auto; 
-    display: flex; 
-    flex-direction: column; 
+  margin-left: 250px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  height: calc(100vh - 83px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
-    display: flex; 
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-    color: #08446C;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  color: #08446c;
 }
 
 .custom-button {
-    margin-left: auto; 
+  margin-left: auto;
 }
 
 .custom-button {
-    border: 1px solid #0A74B7; 
-    background-color: transparent; 
-    color: #0A74B7; 
-    padding: 10px 20px; 
-    border-radius: 5px; 
-    cursor: pointer;
-    font-size: 16px; 
-    transition: background-color 0.3s, color 0.3s; 
-    margin-top: -35px;
+  border: 1px solid #0a74b7;
+  background-color: transparent;
+  color: #0a74b7;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: -35px;
 }
 
 .custom-button:hover {
-    background-color: #0A74B7; 
-    color: white;
+  background-color: #0a74b7;
+  color: white;
 }
 
 .icon-adicionar-pacientes {
-    width: 20px;
-    height: 25px;
-    margin-right: 8px; 
-    vertical-align: middle;
+  width: 20px;
+  height: 25px;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
-h2{
-    font-size: 20px;
-    color: #08446C;
+h2 {
+  font-size: 20px;
+  color: #08446c;
 }
 
 .patients-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px; 
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.patients-table th, .patients-table td {
-    border: 1px solid #dddddd; 
-    text-align: left;
-    padding: 10px; 
+.patients-table th,
+.patients-table td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 10px;
 }
 
 .patients-table th {
-    background-color: #f2f2f2; 
+  background-color: #f2f2f2;
 }
 
 .id-cell {
-    color: #0A74B7; 
-    font-weight: bold; 
+  color: #0a74b7;
+  font-weight: bold;
 }
 
 .view-button {
-    background-color: #0A74B7; 
-    color: white;
-    border: none;
-    padding: 5px 10px; 
-    cursor: pointer;
-    border-radius: 5px; 
+  background-color: #0a74b7;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .view-button:hover {
-    background-color: #08446C;
+  background-color: #08446c;
 }
 
+/* Barra de status do paciente */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
 
+.status-bar span {
+  display: inline-block;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 3px;
+  font-size: 14px;
+}
 
+.status-bar .em-tratamento {
+  background-color: #ffa500; /* Laranja para "Em Tratamento" */
+}
 
+.status-bar .tratamento-finalizado {
+  background-color: #28a745; /* Verde para "Tratamento Finalizado" */
+}
+
+.status-bar .tratamento-cancelado {
+  background-color: #dc3545; /* Vermelho para "Tratamento Cancelado" */
+}

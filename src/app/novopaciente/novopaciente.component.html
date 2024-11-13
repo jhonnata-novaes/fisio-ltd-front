@@ -1,190 +1,302 @@
 <nav class="navbar">
-    <a class="navbar-brand">Minha conta</a>
-    <span class="separator"></span>
-    <a class="navbar-brand" id="dashboard">Meu dashboard</a>
-    <a class="navbar-brand ml-auto">Administrador <span class="arrow-down"></span></a>
+  <a class="navbar-brand">Minha conta</a>
+  <span class="separator"></span>
+  <a class="navbar-brand" id="dashboard">Meu dashboard</a>
+  <a class="navbar-brand ml-auto"
+    >Administrador <span class="arrow-down"></span
+  ></a>
 </nav>
 
 <div class="sidebar">
-    <ul>
-        <li>
-            <a href="#">
-                <img src="assets/logodashboard.png" alt="dashboard icone" class="icon">
-                Meu dashboard
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <img src="assets/logopacientes.png" alt="pacientes icone" class="icon">
-                Pacientes
-            </a>
-        </li>
-    </ul>
+  <ul>
+    <li>
+      <a href="#">
+        <img
+          src="assets/logodashboard.png"
+          alt="dashboard icone"
+          class="icon"
+        />
+        Meu dashboard
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img
+          src="assets/logopacientes.png"
+          alt="pacientes icone"
+          class="icon"
+        />
+        Pacientes
+      </a>
+    </li>
+  </ul>
 </div>
 
 <form [formGroup]="form">
-<div class="main-content">
-    <h1>NOVO PACIENTE</h1>
+  <div class="main-content">
+    <h1>{{ isEditing ? "EDITAR PACIENTE" : "NOVO PACIENTE" }}</h1>
     <div class="dados-basicos">
-        <h6>DADOS BÁSICOS</h6>
+      <h6>DADOS BÁSICOS</h6>
     </div>
     <div class="form-container">
-        <div class="nome-paciente">
-            <p>NOME:</p>
-            <input placeholder="Insira seu nome" type="text" formControlName="nome" class="nome">
-        </div>
-        <div class="data-avaliacao">
-            <p>DATA DA AVALIAÇÃO:</p>
-            <input type="date" formControlName="dataAvaliacao" class="dataAvaliacao">
-        </div>
-        
-        <div class="estado-civil">
-            <p>ESTADO CIVIL:</p>
-            <select formControlName="estadoCivil" class="estadoCivil">
-                <option value="" disabled selected>Selecione uma opção</option>
-                <option value="solteiro">Solteiro(a)</option>
-                <option value="casado">Casado(a)</option>
-                <option value="divorciado">Divorciado(a)</option>
-                <option value="viuvo">Viúvo(a)</option>
-            </select>
-        </div>
+      <div class="nome-paciente">
+        <p>NOME:</p>
+        <input
+          placeholder="Insira seu nome"
+          type="text"
+          formControlName="nome"
+          class="nome"
+        />
+      </div>
+      <div class="data-avaliacao">
+        <p>DATA DA AVALIAÇÃO:</p>
+        <input
+          type="date"
+          formControlName="dataAvaliacao"
+          class="dataAvaliacao"
+        />
+      </div>
+
+      <div class="estado-civil">
+        <p>ESTADO CIVIL:</p>
+        <select formControlName="estadoCivil" class="estadoCivil">
+          <option value="" disabled selected>Selecione uma opção</option>
+          <option value="solteiro">Solteiro(a)</option>
+          <option value="casado">Casado(a)</option>
+          <option value="divorciado">Divorciado(a)</option>
+          <option value="viuvo">Viúvo(a)</option>
+        </select>
+      </div>
     </div>
     <div class="form-container">
-        <div class="nacionalidade-div">
-            <p>NACIONALIDADE:</p>
-            <select formControlName="nacionalidade" class="nacionalidade">
-                <option value="" disabled selected>Selecione uma opção</option>
-                <option value="brasileiro">Brasileiro</option>
-                <option value="estrangeiro">Estrangeiro</option>
-            </select>
-        </div>
-        
-        <div class="naturalidade-div">
-            <p>NATURALIDADE (UF):</p>
-            <select formControlName="naturalidade" class="naturalidade">
-                <option value="" disabled selected>Selecione uma opção</option>
-                <option value="sp">São Paulo</option>
-                <option value="rj">Rio de Janeiro</option>
-                <option value="mg">Minas Gerais</option>
-                <option value="rs">Rio Grande do Sul</option>
-                <option value="pr">Paraná</option>
-            </select>
-        </div>
-        
-        <div class="data-nascimento">
-            <p>DATA DE NASCIMENTO:</p>
-            <input type="date" formControlName="dataNascimento" class="dataNascimento">
-        </div>
-    
-        <div class="peso-div">
-            <p>PESO (kg):</p>
-            <input type="number" formControlName="peso" class="peso" placeholder="Insira seu peso">
-        </div>        
+      <div class="nacionalidade-div">
+        <p>NACIONALIDADE:</p>
+        <select formControlName="nacionalidade" class="nacionalidade">
+          <option value="" disabled selected>Selecione uma opção</option>
+          <option value="brasileiro">Brasileiro</option>
+          <option value="estrangeiro">Estrangeiro</option>
+        </select>
+      </div>
+
+      <div class="naturalidade-div">
+        <p>NATURALIDADE (UF):</p>
+        <select formControlName="naturalidade" class="naturalidade">
+          <option value="" disabled selected>Selecione uma opção</option>
+          <option value="sp">São Paulo</option>
+          <option value="rj">Rio de Janeiro</option>
+          <option value="mg">Minas Gerais</option>
+          <option value="rs">Rio Grande do Sul</option>
+          <option value="pr">Paraná</option>
+        </select>
+      </div>
+
+      <div class="data-nascimento">
+        <p>DATA DE NASCIMENTO:</p>
+        <input
+          type="date"
+          formControlName="dataNascimento"
+          class="dataNascimento"
+        />
+      </div>
+
+      <div class="peso-div">
+        <p>PESO (kg):</p>
+        <input
+          type="number"
+          formControlName="peso"
+          class="peso"
+          placeholder="Insira seu peso"
+        />
+      </div>
     </div>
     <div class="form-container">
-        <div class="altura-div">
-            <p>ALTURA:</p>
-            <input type="text" formControlName="altura" class="altura" placeholder="Insira sua altura">
-        </div>
+      <div class="altura-div">
+        <p>ALTURA:</p>
+        <input
+          type="text"
+          formControlName="altura"
+          class="altura"
+          placeholder="Insira sua altura"
+        />
+      </div>
 
-        <div class="endereco-div">
-            <p>ENDEREÇO:</p>
-            <input type="text" formControlName="endereco" class="endereco" placeholder="Insira seu endereço">
-        </div>
+      <div class="endereco-div">
+        <p>ENDEREÇO:</p>
+        <input
+          type="text"
+          formControlName="endereco"
+          class="endereco"
+          placeholder="Insira seu endereço"
+        />
+      </div>
 
-        <div class="identidade">
-            <p> N° IDENTIDADE:</p>
-            <input type="text" maxlength="10" formControlName="numeroIdentidade" class="numeroIdentidade" placeholder="00.000.000-0">
-        </div>
+      <div class="identidade">
+        <p>N° IDENTIDADE:</p>
+        <input
+          type="text"
+          maxlength="10"
+          formControlName="numeroIdentidade"
+          class="numeroIdentidade"
+          placeholder="00.000.000-0"
+        />
+      </div>
     </div>
     <div class="form-container">
-        <div class="telefone-div">
-            <p>TELEFONE:</p>
-            <input type="text" formControlName="telefone" class="telefone" placeholder="(21) XXXXX-XXXX">
-        </div>
+      <div class="telefone-div">
+        <p>TELEFONE:</p>
+        <input
+          type="text"
+          formControlName="telefone"
+          class="telefone"
+          placeholder="(21) XXXXX-XXXX"
+        />
+      </div>
 
-        <div class="email-div">
-            <p>EMAIL:</p>
-            <input type="email" formControlName="email" class="email" placeholder="Insira seu email">
-        </div>
+      <div class="email-div">
+        <p>EMAIL:</p>
+        <input
+          type="email"
+          formControlName="email"
+          class="email"
+          placeholder="Insira seu email"
+        />
+      </div>
 
-        <div class="profissao-div">
-            <p>PROFISSÃO:</p>
-            <input type="profissao" formControlName="profissao" class="profissao" placeholder="Insira sua profissão">
-        </div>
+      <div class="profissao-div">
+        <p>PROFISSÃO:</p>
+        <input
+          type="profissao"
+          formControlName="profissao"
+          class="profissao"
+          placeholder="Insira sua profissão"
+        />
+      </div>
     </div>
     <div class="diagnostico-container">
-        <label for="diagnostico">DIAGNÓSTICO CLÍNICO:</label>
-        <textarea formControlName="diagnosticoClinico" placeholder="Insira o diagnóstico "></textarea>
+      <label for="diagnostico">DIAGNÓSTICO CLÍNICO:</label>
+      <textarea
+        formControlName="diagnosticoClinico"
+        placeholder="Insira o diagnóstico "
+      ></textarea>
     </div>
     <div class="dados-ficha">
-        <h6>DADOS FICHA ANAMNESE</h6>
+      <h6>DADOS FICHA ANAMNESE</h6>
     </div>
     <div class="queixa-container">
-        <label for="queixa">QUEIXA PRINCIPAL (QP):</label>
-        <textarea formControlName="queixa" placeholder="Insira a queixa principal do paciente"></textarea>
-    </div>  
+      <label for="queixa">QUEIXA PRINCIPAL (QP):</label>
+      <textarea
+        formControlName="queixa"
+        placeholder="Insira a queixa principal do paciente"
+      ></textarea>
+    </div>
     <div class="historia-doença">
-        <label for="historia-doença">HISTÓRIA DA DOENÇA ATUAL (HDA):</label>
-        <textarea formControlName="historiadoenca" placeholder="Insira a história da doença atual do paciente"></textarea>
-    </div> 
+      <label for="historia-doença">HISTÓRIA DA DOENÇA ATUAL (HDA):</label>
+      <textarea
+        formControlName="historiadoenca"
+        placeholder="Insira a história da doença atual do paciente"
+      ></textarea>
+    </div>
     <div class="historia-patologica">
-        <label for="historia-patologica">HISTÓRIA PATÓLOGICA PREGRESSA (HPP):</label>
-        <textarea formControlName="historiapatologica" placeholder="Insira a história da doença atual do paciente"></textarea>
-    </div> 
+      <label for="historia-patologica"
+        >HISTÓRIA PATÓLOGICA PREGRESSA (HPP):</label
+      >
+      <textarea
+        formControlName="historiapatologica"
+        placeholder="Insira a história da doença atual do paciente"
+      ></textarea>
+    </div>
     <div class="habitos">
-        <label for="habitos-div">HABITOS DE VIDA:</label>
-        <textarea formControlName="habitos" placeholder="Insira os hábitos de vida do paciente "></textarea>
-    </div>   
+      <label for="habitos-div">HABITOS DE VIDA:</label>
+      <textarea
+        formControlName="habitos"
+        placeholder="Insira os hábitos de vida do paciente "
+      ></textarea>
+    </div>
     <div class="historia-familiar">
-        <label for="historia-familiar">HISTÓRIA FAMILIAR:</label>
-        <textarea formControlName="historiafamiliar" placeholder="Insira a história familiar do paciente "></textarea>
-    </div> 
+      <label for="historia-familiar">HISTÓRIA FAMILIAR:</label>
+      <textarea
+        formControlName="historiafamiliar"
+        placeholder="Insira a história familiar do paciente "
+      ></textarea>
+    </div>
     <div class="exames">
-        <h6>EXAMES</h6>
-    </div>  
+      <h6>EXAMES</h6>
+    </div>
     <div class="exames-complementares">
-        <label for="exames-complementares">EXAMES COMPLEMENTARES:</label>
-        <textarea formControlName="examesComplementares" placeholder="Insira os exames complementares do paciente "></textarea>
+      <label for="exames-complementares">EXAMES COMPLEMENTARES:</label>
+      <textarea
+        formControlName="examesComplementares"
+        placeholder="Insira os exames complementares do paciente "
+      ></textarea>
     </div>
     <div class="exame-fisico">
-        <label for="exame-fisico">EXAME FÍSICO-FUNCIONAL(CINÉTICO-FUNCIONAL):</label>
-        <textarea formControlName="examefisico" placeholder="Insira o exame físico-funcional do paciente"></textarea>
-    </div>       
+      <label for="exame-fisico"
+        >EXAME FÍSICO-FUNCIONAL(CINÉTICO-FUNCIONAL):</label
+      >
+      <textarea
+        formControlName="examefisico"
+        placeholder="Insira o exame físico-funcional do paciente"
+      ></textarea>
+    </div>
     <div class="proagnostico">
-        <h6>DIAGNÓSTICO/PROAGNÓSTICO</h6>
+      <h6>DIAGNÓSTICO/PROAGNÓSTICO</h6>
     </div>
     <div class="diagnostico-fisio">
-        <label for="diagnostico-fisio">DIAGNÓSTICO FISIOTERAPÊUTICO:</label>
-        <textarea formControlName="diagnosticoFisio" placeholder="Descrição técnica dos desvios físico-funcionais de maior relevância"></textarea>
-    </div> 
+      <label for="diagnostico-fisio">DIAGNÓSTICO FISIOTERAPÊUTICO:</label>
+      <textarea
+        formControlName="diagnosticoFisio"
+        placeholder="Descrição técnica dos desvios físico-funcionais de maior relevância"
+      ></textarea>
+    </div>
     <div class="proagnostico-fisio">
-        <label for="proagnostico-fisio">PROAGNÓSTICO FISIOTERAPÊUTICO:</label>
-        <textarea formControlName="proagnosticoFisio" placeholder="Compreende a estimativa de evolução do caso em relação ao diagnostico fisioterapêutico"></textarea>
-    </div> 
+      <label for="proagnostico-fisio">PROAGNÓSTICO FISIOTERAPÊUTICO:</label>
+      <textarea
+        formControlName="proagnosticoFisio"
+        placeholder="Compreende a estimativa de evolução do caso em relação ao diagnostico fisioterapêutico"
+      ></textarea>
+    </div>
     <div class="quantidade-atendimentos">
-        <label for="quantidade">Quantidade Provável de Atendimentos</label>
-        <textarea formControlName="quantidade" placeholder="Digite a quantidade"></textarea>
+      <label for="quantidade">Quantidade Provável de Atendimentos</label>
+      <textarea
+        formControlName="quantidade"
+        placeholder="Digite a quantidade"
+      ></textarea>
     </div>
     <div class="tratamento">
-        <h6>TRATAMENTO PROPOSTO</h6>
-    </div> 
+      <h6>TRATAMENTO PROPOSTO</h6>
+    </div>
     <div class="plano">
-        <label for="plano">PLANO TERAPÊUTICO:</label>
-        <textarea formControlName="plano" placeholder="Descrição dos procedimentos fisioterápicos propostos relatando os recursos, métodos e técnicas a serem utilizados e o(s) objetivo(s) terapêutico(s) a ser(em) alcançado(s)"></textarea>
+      <label for="plano">PLANO TERAPÊUTICO:</label>
+      <textarea
+        formControlName="plano"
+        placeholder="Descrição dos procedimentos fisioterápicos propostos relatando os recursos, métodos e técnicas a serem utilizados e o(s) objetivo(s) terapêutico(s) a ser(em) alcançado(s)"
+      ></textarea>
     </div>
     <div class="button-container">
-        <button class="button button-save" (click)="salvar()" [disabled]="form.invalid">
-            <img src="/assets/save.png" alt="Salvar" class="icon">
-            Salvar Dados
-        </button>
-        <button class= "button button-finish" (click)="finalizarTratamento(pacienteId)">
-            <img src="/assets/finalizar.png" alt="Finalizar" class="icon">
-            Finalizar Tratamento
-          </button>
-        <button class="button button-cancel" (click)="cancelarTratamento(pacienteId)">
-            <img src="/assets/cancela.png" alt="Cancelar" class="icon">
-            Cancelar Tratamento
-        </button>
-    </div>    
-</div>
+      <button
+        class="button button-save"
+        (click)="salvar()"
+        [disabled]="form.invalid"
+      >
+        <img src="/assets/save.png" alt="Salvar" class="icon" />
+        Salvar Dados
+      </button>
+      <button
+        class="button button-finish"
+        (click)="finalizarTratamento(pacienteId)"
+        *ngIf="isEditing"
+      >
+        <img src="/assets/finalizar.png" alt="Finalizar" class="icon" />
+        Finalizar Tratamento
+      </button>
+      <button
+        class="button button-cancel"
+        (click)="cancelarTratamento(pacienteId)"
+        *ngIf="isEditing"
+      >
+        <img src="/assets/cancela.png" alt="Cancelar" class="icon" />
+        Cancelar Tratamento
+      </button>
+    </div>
+  </div>
+</form>

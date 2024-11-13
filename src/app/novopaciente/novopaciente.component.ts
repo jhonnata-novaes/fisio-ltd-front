@@ -11,6 +11,7 @@ import { PacienteService } from '../services/paciente.service';
 export class NovopacienteComponent implements OnInit {
   form: FormGroup;
   pacienteId: number | null = null;
+  isEditing: boolean = false;
 
   constructor(
     private pacienteService: PacienteService,
@@ -65,7 +66,6 @@ export class NovopacienteComponent implements OnInit {
       console.error('Formulário inválido');
     }
   }
-  
 
   private salvarPaciente(formValues: any) {
     const pacienteData = this.gerarPacienteData(formValues);
@@ -170,15 +170,17 @@ export class NovopacienteComponent implements OnInit {
             ...this.gerarPacienteData(formValues),
           };
 
-          this.pacienteService.atualizarPaciente(this.pacienteId as number, pacienteAtualizado).subscribe({
-            next: (response: any) => {
-              console.log('Paciente atualizado com sucesso!', response);
-              this.router.navigate(['pacientes']);
-            },
-            error: (error: any) => {
-              console.error('Erro ao atualizar paciente:', error);
-            },
-          });
+          this.pacienteService
+            .atualizarPaciente(this.pacienteId as number, pacienteAtualizado)
+            .subscribe({
+              next: (response: any) => {
+                console.log('Paciente atualizado com sucesso!', response);
+                this.router.navigate(['pacientes']);
+              },
+              error: (error: any) => {
+                console.error('Erro ao atualizar paciente:', error);
+              },
+            });
         } else {
           console.warn('Paciente não encontrado');
         }
@@ -203,15 +205,20 @@ export class NovopacienteComponent implements OnInit {
             ...this.gerarPacienteData(formValues),
           };
 
-          this.pacienteService.atualizarFichaAnamnese(this.pacienteId as number, pacienteAtualizado).subscribe({
-            next: (response: any) => {
-              console.log('Paciente atualizado com sucesso!', response);
-              this.router.navigate(['pacientes']);
-            },
-            error: (error: any) => {
-              console.error('Erro ao atualizar paciente:', error);
-            },
-          });
+          this.pacienteService
+            .atualizarFichaAnamnese(
+              this.pacienteId as number,
+              pacienteAtualizado
+            )
+            .subscribe({
+              next: (response: any) => {
+                console.log('Paciente atualizado com sucesso!', response);
+                this.router.navigate(['pacientes']);
+              },
+              error: (error: any) => {
+                console.error('Erro ao atualizar paciente:', error);
+              },
+            });
         } else {
           console.warn('Paciente não encontrado');
         }
@@ -236,15 +243,17 @@ export class NovopacienteComponent implements OnInit {
             ...this.gerarPacienteData(formValues),
           };
 
-          this.pacienteService.atualizarExames(this.pacienteId as number, pacienteAtualizado).subscribe({
-            next: (response: any) => {
-              console.log('Paciente atualizado com sucesso!', response);
-              this.router.navigate(['pacientes']);
-            },
-            error: (error: any) => {
-              console.error('Erro ao atualizar paciente:', error);
-            },
-          });
+          this.pacienteService
+            .atualizarExames(this.pacienteId as number, pacienteAtualizado)
+            .subscribe({
+              next: (response: any) => {
+                console.log('Paciente atualizado com sucesso!', response);
+                this.router.navigate(['pacientes']);
+              },
+              error: (error: any) => {
+                console.error('Erro ao atualizar paciente:', error);
+              },
+            });
         } else {
           console.warn('Paciente não encontrado');
         }
@@ -269,15 +278,17 @@ export class NovopacienteComponent implements OnInit {
             ...this.gerarPacienteData(formValues),
           };
 
-          this.pacienteService.atualizarDiagnostico(this.pacienteId as number, pacienteAtualizado).subscribe({
-            next: (response: any) => {
-              console.log('Paciente atualizado com sucesso!', response);
-              this.router.navigate(['pacientes']);
-            },
-            error: (error: any) => {
-              console.error('Erro ao atualizar paciente:', error);
-            },
-          });
+          this.pacienteService
+            .atualizarDiagnostico(this.pacienteId as number, pacienteAtualizado)
+            .subscribe({
+              next: (response: any) => {
+                console.log('Paciente atualizado com sucesso!', response);
+                this.router.navigate(['pacientes']);
+              },
+              error: (error: any) => {
+                console.error('Erro ao atualizar paciente:', error);
+              },
+            });
         } else {
           console.warn('Paciente não encontrado');
         }
@@ -302,15 +313,20 @@ export class NovopacienteComponent implements OnInit {
             ...this.gerarPacienteData(formValues),
           };
 
-          this.pacienteService.atualizarTratamentoProposto(this.pacienteId as number, pacienteAtualizado).subscribe({
-            next: (response: any) => {
-              console.log('Paciente atualizado com sucesso!', response);
-              this.router.navigate(['pacientes']);
-            },
-            error: (error: any) => {
-              console.error('Erro ao atualizar paciente:', error);
-            },
-          });
+          this.pacienteService
+            .atualizarTratamentoProposto(
+              this.pacienteId as number,
+              pacienteAtualizado
+            )
+            .subscribe({
+              next: (response: any) => {
+                console.log('Paciente atualizado com sucesso!', response);
+                this.router.navigate(['pacientes']);
+              },
+              error: (error: any) => {
+                console.error('Erro ao atualizar paciente:', error);
+              },
+            });
         } else {
           console.warn('Paciente não encontrado');
         }
@@ -326,9 +342,10 @@ export class NovopacienteComponent implements OnInit {
       console.error('Paciente ID é nulo');
       return;
     }
-  
+
     this.pacienteService.finalizarTratamento(pacienteId).subscribe(
       (response: any) => {
+        console.log('Tratamento finalizado com sucesso:', response);
         this.router.navigate(['pacientes']);
       },
       (error: any) => {
@@ -340,11 +357,12 @@ export class NovopacienteComponent implements OnInit {
   cancelarTratamento(pacienteId: number | null) {
     if (pacienteId === null) {
       console.error('ID do paciente não encontrado');
-      return;  // Não continuar se o ID não for válido
+      return;
     }
-  
+
     this.pacienteService.cancelarTratamento(pacienteId).subscribe(
       (response: any) => {
+        console.log('Tratamento cancelado com sucesso:', response);
         this.router.navigate(['pacientes']);
       },
       (error: any) => {
@@ -356,7 +374,9 @@ export class NovopacienteComponent implements OnInit {
   private gerarPacienteData(formValues: any) {
     return {
       nome: formValues.nome || undefined,
-      dataAvaliacao: formValues.dataAvaliacao ? this.formatarData(formValues.dataAvaliacao) : undefined,
+      dataAvaliacao: formValues.dataAvaliacao
+        ? this.formatarData(formValues.dataAvaliacao)
+        : undefined,
       estadoCivil: formValues.estadoCivil || undefined,
       nacionalidade: formValues.nacionalidade || undefined,
       naturalidade: formValues.naturalidade || undefined,
@@ -384,51 +404,56 @@ export class NovopacienteComponent implements OnInit {
   }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-        const idParam = params['id'];
-        this.pacienteId = +idParam; // Converte para número
+      const idParam = params['id'];
+      this.pacienteId = +idParam; // Converte para número
 
-        // Debugging: Verifique o ID recebido
-        console.log('ID do paciente recebido:', idParam);
-        console.log('ID do paciente após conversão:', this.pacienteId);
+      // Debugging: Verifique o ID recebido
+      console.log('ID do paciente recebido:', idParam);
+      console.log('ID do paciente após conversão:', this.pacienteId);
 
-        if (!isNaN(this.pacienteId) && this.pacienteId > 0) {
-            // Se é um ID válido, carregue os dados do paciente
-            this.carregarPaciente(this.pacienteId);
-            this.carregarFichaAnamnese(this.pacienteId);
-            this.carregarExames(this.pacienteId);
-            this.carregarDiagnostico(this.pacienteId);
-            this.carregarTratamentoProposto(this.pacienteId);
-        } else {
-            // Caso contrário, estamos criando um novo paciente
-            console.log('Criando um novo paciente');
-            // Aqui você pode inicializar os dados do formulário para um novo paciente
-        }
+      if (!isNaN(this.pacienteId) && this.pacienteId > 0) {
+        // Se é um ID válido, carregue os dados do paciente
+        this.isEditing = true; // Habilita o modo de edição
+        this.carregarPaciente(this.pacienteId);
+        this.carregarFichaAnamnese(this.pacienteId);
+        this.carregarExames(this.pacienteId);
+        this.carregarDiagnostico(this.pacienteId);
+        this.carregarTratamentoProposto(this.pacienteId);
+      } else {
+        // Caso contrário, estamos criando um novo paciente
+        console.log('Criando um novo paciente');
+        this.isEditing = false; // Modo de criação
+        // Aqui você pode inicializar os dados do formulário para um novo paciente
+      }
     });
-}
+  }
 
   private formatarData(data: string | null): string | null {
     if (data) {
-      return data.split("T")[0];
+      return data.split('T')[0];
     }
     return null;
-  
   }
-  
+
   private carregarPaciente(id: number) {
     this.pacienteService.getPacientePorId(id).subscribe({
       next: (paciente: any) => {
         if (paciente) {
           // Atribui os valores ao FormGroup
           this.form.patchValue(paciente);
-  
+
           // Formatar e atribuir a data de nascimento
-          const dataNascimentoFormatada = this.formatarData(paciente.dataNascimento);
+          const dataNascimentoFormatada = this.formatarData(
+            paciente.dataNascimento
+          );
           this.form.patchValue({
             dataNascimento: dataNascimentoFormatada,
           });
-  
+
           // Formatar e atribuir a data de avaliação
-          const dataAvaliacaoFormatada = this.formatarData(paciente.dataAvaliacao);
+          const dataAvaliacaoFormatada = this.formatarData(
+            paciente.dataAvaliacao
+          );
           this.form.patchValue({
             dataAvaliacao: dataAvaliacaoFormatada,
           });
@@ -441,21 +466,22 @@ export class NovopacienteComponent implements OnInit {
       },
     });
   }
-  
 
   private carregarFichaAnamnese(id: number) {
     this.pacienteService.getFichaAnamnesePorId(id).subscribe({
-      next: (ficha: any[]) => { // A resposta é um array, então mantenha o tipo como any[]
+      next: (ficha: any[]) => {
+        // A resposta é um array, então mantenha o tipo como any[]
         console.log('Dados retornados:', ficha); // Log para visualizar a estrutura
-  
-        if (ficha && ficha.length > 0) { // Verifica se existe e se não está vazio
+
+        if (ficha && ficha.length > 0) {
+          // Verifica se existe e se não está vazio
           this.form.patchValue({
             queixa: ficha[0].queixa,
             historiadoenca: ficha[0].historiaDoencaAtual, // Corrigido para corresponder ao nome correto
             historiapatologica: ficha[0].historiaPatologica, // Corrigido para corresponder ao nome correto
             habitos: ficha[0].habitosVida, // Corrigido para corresponder ao nome correto
-            historiafamiliar: ficha[0].historiaFamiliar // Corrigido para corresponder ao nome correto
-          }); 
+            historiafamiliar: ficha[0].historiaFamiliar, // Corrigido para corresponder ao nome correto
+          });
         } else {
           console.warn('Ficha de Anamnese não encontrada');
         }
@@ -465,16 +491,15 @@ export class NovopacienteComponent implements OnInit {
       },
     });
   }
-  
 
   private carregarExames(id: number) {
     this.pacienteService.getExamesPorId(id).subscribe({
       next: (exames: any) => {
-        console.log('Dados retornados:', exames);  // Verifique os dados retornados aqui
+        console.log('Dados retornados:', exames); // Verifique os dados retornados aqui
         if (exames && exames.length > 0) {
           this.form.patchValue({
             examesComplementares: exames[0].examesComplementares,
-            examefisico: exames[0].exameFisico
+            examefisico: exames[0].exameFisico,
           });
         } else {
           console.warn('Exames não encontrados');
@@ -505,12 +530,13 @@ export class NovopacienteComponent implements OnInit {
       },
     });
   }
-  
 
   private carregarTratamentoProposto(id: number) {
     this.pacienteService.getTratamentoPropostoPorId(id).subscribe({
-      next: (tratamento: any[]) => { // Mudei para tratamento: any[]
-        if (tratamento && tratamento.length > 0) { // Verifica se existe e se não está vazio
+      next: (tratamento: any[]) => {
+        // Mudei para tratamento: any[]
+        if (tratamento && tratamento.length > 0) {
+          // Verifica se existe e se não está vazio
           this.form.patchValue({
             plano: tratamento[0].plano, // Acessa o primeiro item do array
           });
